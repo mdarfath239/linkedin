@@ -9,6 +9,8 @@ import MyNetwork from "./pages/MyNetwork";
 import Messaging from "./pages/Messaging";
 import Jobs from "./pages/Jobs";
 import Notifications from "./pages/Notifications";
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
 
 const queryClient = new QueryClient();
 
@@ -20,6 +22,8 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
           <Route path="/my-network" element={<MyNetwork />} />
           <Route path="/messaging" element={<Messaging />} />
           <Route path="/jobs" element={<Jobs />} />

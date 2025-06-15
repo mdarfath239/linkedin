@@ -19,7 +19,7 @@ const Navbar = ({
     <nav className="bg-white flex items-center justify-between px-6 py-3 border-b shadow-sm">
       {/* Logo and search */}
       <div className="flex items-center gap-4">
-        <div className="text-2xl font-bold text-[#0A66C2]">
+        <div className="text-2xl font-bold text-[#0A66C2] mr-2">
           <a href="/">LinkedClone</a>
         </div>
         <div className="relative">
@@ -68,8 +68,20 @@ const Navbar = ({
           Notifications
         </a>
       </div>
-      {/* Profile/Me link etc. */}
+      {/* Profile/Me link and auth */}
       <div className="flex items-center gap-4">
+        <a
+          href="/login"
+          className="border-2 border-[#0A66C2] text-[#0A66C2] rounded-full px-5 py-1.5 font-semibold hover:bg-[#0A66C2] hover:text-white transition"
+        >
+          Sign in
+        </a>
+        <a
+          href="/signup"
+          className="rounded-full px-5 py-1.5 bg-[#0A66C2] text-white font-semibold hover:bg-[#004182] border-2 border-[#0A66C2] transition"
+        >
+          Join now
+        </a>
         <button
           onClick={onMeClick}
           className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-full transition"
