@@ -10,7 +10,7 @@ const INITIAL_USER = {
   title: "Product Designer at EditNow",
 };
 
-// Example initial posts
+// Example initial posts (video post added!)
 const INITIAL_POSTS = [
   {
     id: 1,
@@ -68,6 +68,52 @@ const INITIAL_POSTS = [
       },
     ],
   },
+  // New posts:
+  {
+    id: 3,
+    user: {
+      name: "Aman Azmi",
+      avatar: "https://randomuser.me/api/portraits/men/44.jpg",
+      title: "Motion Designer",
+    },
+    time: "12m",
+    content: "Showreel 2024 — Latest motion graphics for modern brands. Feedback welcome! 🎬",
+    video: "https://www.w3schools.com/html/mov_bbb.mp4",
+    likes: 2,
+    comments: 0,
+    reactions: { like: 2 },
+    allComments: [],
+  },
+  {
+    id: 4,
+    user: {
+      name: "Jessica Ling",
+      avatar: "https://randomuser.me/api/portraits/women/33.jpg",
+      title: "Full Stack Developer",
+    },
+    time: "25m",
+    content: "Deployed a new dashboard for analytics. 🚀\nScreenshots below!",
+    image: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=600&q=80",
+    likes: 1,
+    comments: 0,
+    reactions: { like: 1 },
+    allComments: [],
+  },
+  {
+    id: 5,
+    user: {
+      name: "Promo Plus",
+      avatar: "https://randomuser.me/api/portraits/men/12.jpg",
+      title: "Brand",
+    },
+    time: "1h",
+    content: "Introducing our new explainer video for 2024!\nLet us know what you think 🎥👇",
+    video: "https://www.w3schools.com/html/movie.mp4",
+    likes: 0,
+    comments: 0,
+    reactions: { like: 0 },
+    allComments: [],
+  },
 ];
 
 const CURRENT_USER = {
@@ -78,15 +124,16 @@ const CURRENT_USER = {
 
 const Feed = () => {
   const [posts, setPosts] = useState(INITIAL_POSTS);
-  // Track which posts are liked (by ID)
   const [likedPosts, setLikedPosts] = useState<Record<number, boolean>>({});
 
   const handleCreatePost = ({
     content,
     image,
+    video,
   }: {
     content: string;
     image?: string;
+    video?: string;
   }) => {
     const newPost = {
       id: Date.now(),
@@ -94,6 +141,7 @@ const Feed = () => {
       time: "now",
       content,
       image,
+      video,
       likes: 0,
       comments: 0,
       reactions: { like: 0 },
@@ -170,7 +218,7 @@ const Feed = () => {
           key={post.id}
           post={post}
           onReact={(type) => {
-            if (type === "like" && likedPosts[post.id]) return; // Do nothing if already liked
+            if (type === "like" && likedPosts[post.id]) return;
             handleReact(post.id, type);
           }}
           onComment={(text) => handleComment(post.id, text)}

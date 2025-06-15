@@ -16,6 +16,7 @@ export interface FeedPostCardProps {
     time: string;
     content: string;
     image?: string;
+    video?: string;
     likes: number;
     comments: number;
     reactions?: Record<string, number>;
@@ -53,6 +54,15 @@ const FeedPostCard: React.FC<FeedPostCardProps> = ({
           alt="Feed"
           className="rounded-lg w-full object-cover max-h-96 mb-3 border"
         />
+      )}
+      {post.video && (
+        <video
+          controls
+          className="rounded-lg w-full object-cover max-h-96 mb-3 border bg-black"
+        >
+          <source src={post.video} />
+          Your browser does not support the video tag.
+        </video>
       )}
       {/* Reactions summary */}
       <div className="flex items-center gap-6 mb-2 text-xs text-gray-500">
@@ -112,7 +122,7 @@ function FeedAction({
       className={`group flex items-center gap-1 px-2 py-1 rounded hover:bg-gray-100 transition-colors text-gray-500 font-medium text-sm ${isLike && active ? "text-[#0A66C2]" : ""}`}
       onClick={onClick}
       type="button"
-      disabled={isLike && active} // disable if already liked
+      disabled={isLike && active}
     >
       <Icon
         className={`w-5 h-5 group-hover:text-[#0A66C2] ${
