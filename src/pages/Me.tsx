@@ -11,12 +11,12 @@ const AvatarPlaceholder = () => (
     height={128}
     viewBox="0 0 128 128"
     fill="none"
-    className="w-32 h-32"
+    className="w-24 h-24 sm:w-32 sm:h-32"
     xmlns="http://www.w3.org/2000/svg"
   >
     <circle cx="64" cy="48" r="28" fill="#E5EAF0" stroke="#B0B8C1" strokeWidth="2" />
     <ellipse cx="64" cy="96" rx="40" ry="24" fill="#E5EAF0" stroke="#B0B8C1" strokeWidth="2" />
-    <circle cx="64" cy="48" r="10" fill="#B0B8C1" opacity="0.5" />
+    {/* No face */}
   </svg>
 );
 
@@ -25,35 +25,35 @@ const universityLogo = "https://upload.wikimedia.org/wikipedia/en/1/1c/Visvesvar
 
 const Me: React.FC = () => {
   return (
-    <div className="min-h-screen bg-[#f3f6f8] flex flex-col items-center px-2 py-8">
-      <div className="w-full max-w-[900px] flex gap-6">
+    <div className="min-h-screen bg-[#f3f6f8] flex flex-col items-center px-1 sm:px-2 py-4 sm:py-8">
+      <div className="w-full max-w-[900px] flex flex-col lg:flex-row gap-6">
         {/* Main - Profile card */}
         <div className="flex-1">
           <div className="bg-white rounded-xl border shadow-sm overflow-hidden mb-4 relative">
             {/* Banner */}
-            <div className="relative h-[150px] w-full">
+            <div className="relative h-[100px] sm:h-[150px] w-full">
               <img
                 src={profileBG}
                 alt="Cover"
                 className="object-cover w-full h-full"
               />
             </div>
-            {/* Avatar - moved to top, overlapping the banner */}
-            <div className="absolute left-1/2 -translate-x-1/2 -top-14 flex flex-col items-center">
-              <div className="relative group w-32 h-32">
-                <div className="w-32 h-32 rounded-full border-4 border-white shadow-lg bg-[#E5EAF0] flex items-center justify-center overflow-hidden">
+            {/* Avatar - overlapping the banner */}
+            <div className="absolute left-1/2 -translate-x-1/2 -top-12 sm:-top-14 flex flex-col items-center">
+              <div className="relative group w-24 h-24 sm:w-32 sm:h-32">
+                <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full border-4 border-white shadow-lg bg-[#E5EAF0] flex items-center justify-center overflow-hidden">
                   <AvatarPlaceholder />
                 </div>
                 {/* Upload/Edit button */}
                 <button className="absolute bottom-2 right-2 bg-white border-2 border-blue-500 text-blue-500 rounded-full p-1.5 hover:bg-blue-50 transition">
-                  <Plus className="text-[#0A66C2]" size={22} />
+                  <Plus className="text-[#0A66C2]" size={18} />
                 </button>
               </div>
             </div>
             {/* Main content */}
-            <div className="pt-24 pb-4 px-6 flex flex-col gap-1 relative">
-              <div className="flex items-center gap-2 justify-center">
-                <span className="text-2xl font-bold">Mohammed Arfath</span>
+            <div className="pt-20 sm:pt-24 pb-4 px-3 sm:px-6 flex flex-col gap-1 relative">
+              <div className="flex flex-col xs:flex-row items-center gap-2 justify-center min-h-[40px]">
+                <span className="text-xl sm:text-2xl font-bold">Mohammed Arfath</span>
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
@@ -70,34 +70,34 @@ const Me: React.FC = () => {
                   </Tooltip>
                 </TooltipProvider>
                 {/* Edit icon */}
-                <button className="ml-2 p-1 bg-white border rounded-full hover:bg-gray-100 transition">
+                <button className="ml-0 sm:ml-2 p-1 bg-white border rounded-full hover:bg-gray-100 transition">
                   <Pencil size={16} />
                 </button>
               </div>
               <div className="text-sm text-gray-700 font-medium mt-1 text-center">
                 "Full Stack MERN Developer | React.js | Node.js | MongoDB | Express.js | Next.js | RESTful APIs ... Passionate about Building Responsive & User-Centric Web Applications"
               </div>
-              <div className="flex items-center text-xs text-gray-500 mt-1 gap-2 justify-center">
+              <div className="flex flex-col xs:flex-row items-center text-xs text-gray-500 mt-1 gap-2 justify-center">
                 Bengaluru, Karnataka, India •
                 <a href="#" className="text-[#0A66C2] hover:underline">Contact info</a>
               </div>
               <div className="flex flex-col items-center gap-1 mt-1">
-                <a href="https://github.com/mdarfath239" className="text-xs text-blue-700 hover:underline">https://github.com/mdarfath239</a>
-                <div className="flex flex-wrap gap-4 mt-2 mb-4 items-center justify-center">
+                <a href="https://github.com/mdarfath239" className="text-xs text-blue-700 hover:underline break-all">https://github.com/mdarfath239</a>
+                <div className="flex flex-wrap gap-3 sm:gap-4 mt-2 mb-4 items-center justify-center">
                   <span className="text-[#0A66C2] font-semibold text-sm">746 followers</span>
                   <span className="text-[#0A66C2] text-sm">• 500+ connections</span>
                   <div className="flex items-center gap-1 pl-2">
-                    <img src={universityLogo} alt="University" className="w-7 h-7 rounded-full border" />
+                    <img src={universityLogo} alt="University" className="w-6 h-6 sm:w-7 sm:h-7 rounded-full border" />
                     <span className="text-xs text-[#44A33A] font-semibold whitespace-nowrap">Visvesvaraya Technological University</span>
                   </div>
                 </div>
               </div>
               {/* Profile actions */}
-              <div className="flex flex-wrap gap-3 mt-2 justify-center">
-                <Button variant="outline" className="border-[#0A66C2] text-[#0A66C2] hover:bg-[#eaf2fa]">Open to</Button>
-                <Button variant="outline" className="border-[#0A66C2] text-[#0A66C2] hover:bg-[#eaf2fa]">Add profile section</Button>
-                <Button variant="outline" className="border-[#0A66C2] text-[#0A66C2] hover:bg-[#eaf2fa]">Enhance profile</Button>
-                <Button variant="outline" className="border-[#0A66C2] text-[#0A66C2] hover:bg-[#eaf2fa]">Resources</Button>
+              <div className="flex flex-wrap gap-2 sm:gap-3 mt-2 justify-center">
+                <Button variant="outline" className="border-[#0A66C2] text-[#0A66C2] hover:bg-[#eaf2fa] text-xs sm:text-sm">Open to</Button>
+                <Button variant="outline" className="border-[#0A66C2] text-[#0A66C2] hover:bg-[#eaf2fa] text-xs sm:text-sm">Add profile section</Button>
+                <Button variant="outline" className="border-[#0A66C2] text-[#0A66C2] hover:bg-[#eaf2fa] text-xs sm:text-sm">Enhance profile</Button>
+                <Button variant="outline" className="border-[#0A66C2] text-[#0A66C2] hover:bg-[#eaf2fa] text-xs sm:text-sm">Resources</Button>
               </div>
             </div>
           </div>
@@ -119,7 +119,7 @@ const Me: React.FC = () => {
               <div className="text-xs font-semibold">Public profile &amp; URL</div>
               <button className="p-1 hover:bg-gray-100 rounded-full transition"><Pencil size={14}/></button>
             </div>
-            <a href="https://www.linkedin.com/in/arfath239" className="text-xs text-blue-700 hover:underline">www.linkedin.com/in/arfath239</a>
+            <a href="https://www.linkedin.com/in/arfath239" className="text-xs text-blue-700 hover:underline break-all">www.linkedin.com/in/arfath239</a>
           </div>
           <div className="bg-white rounded-xl border shadow-sm p-4 text-center">
             <div className="text-xs text-gray-500 mb-2">Ad</div>
@@ -136,3 +136,4 @@ const Me: React.FC = () => {
 };
 
 export default Me;
+
