@@ -12,7 +12,8 @@ const jobLists = [
     location: "Greater Bengaluru Area (On-site)",
     promoted: true,
     activelyReviewing: true,
-    logo: "https://upload.wikimedia.org/wikipedia/commons/5/5e/HCL_Technologies_Logo.svg",
+    // Example Unsplash image
+    logo: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=facearea&w=96&h=96",
     easyApply: true,
     verified: true,
   },
@@ -23,7 +24,8 @@ const jobLists = [
     location: "Greater Bengaluru Area (On-site)",
     promoted: true,
     activelyReviewing: true,
-    logo: "https://upload.wikimedia.org/wikipedia/commons/2/2b/Synechron_logo.svg",
+    // Example Unsplash image
+    logo: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=facearea&w=96&h=96",
     easyApply: true,
     verified: true,
   },
@@ -34,7 +36,8 @@ const jobLists = [
     location: "Bengaluru, Karnataka, India (On-site)",
     promoted: true,
     activelyReviewing: true,
-    logo: "https://seeklogo.com/images/S/styli-logo-1B2F8A393D-seeklogo.com.png",
+    // Example Unsplash image
+    logo: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=facearea&w=96&h=96",
     easyApply: true,
     verified: true,
   }
