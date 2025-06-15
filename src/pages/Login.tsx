@@ -1,12 +1,12 @@
-
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { LogIn, User } from "lucide-react";
+import { LogIn } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useSupabaseAuth } from "@/hooks/useSupabaseAuth";
 import { toast } from "@/components/ui/use-toast";
+import Navbar from "@/components/Navbar";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -57,35 +57,11 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-[#f3f6f8] px-4">
-      {/* Nav bar mimic */}
-      <div className="w-full flex items-center justify-between max-w-lg mx-auto pt-6">
-        <div className="flex items-center gap-1 text-3xl font-bold text-[#0A66C2]">
-          Linked
-          <span className="bg-[#0A66C2] px-2 py-0.5 rounded text-white">in</span>
-        </div>
-        <div className="flex gap-3">
-          <Button
-            variant="outline"
-            className="border-2 text-[#0A66C2] font-semibold border-[#0A66C2] rounded-full px-6 py-2"
-            onClick={() => navigate("/signup")}
-          >
-            Join now
-          </Button>
-          <Button
-            variant="outline"
-            className="rounded-full px-6 py-2 font-semibold border-[#0A66C2] text-[#0A66C2]"
-            onClick={() => navigate("/login")}
-          >
-            Sign in
-          </Button>
-        </div>
-      </div>
-      {/* Main card */}
+      <Navbar />
       <div className="w-full max-w-lg bg-white rounded-xl shadow mt-12 px-2 py-8 md:p-12 flex flex-col items-center">
         <h2 className="text-2xl font-semibold text-center mb-2">
           Welcome to your professional community
         </h2>
-        {/* Auth buttons */}
         <Button
           className="w-full flex items-center justify-center bg-[#fff] text-gray-700 border-2 border-gray-200 rounded-full mt-6 mb-2 hover:bg-gray-50 shadow"
           disabled={signingIn}
@@ -99,7 +75,6 @@ const Login = () => {
           Continue with Google
         </Button>
         <div className="w-full border-t my-4"></div>
-        {/* Email/password form */}
         <form className="w-full space-y-3" onSubmit={handleSignIn}>
           <Input
             type="email"
@@ -136,7 +111,6 @@ const Login = () => {
           <a href="#" className="text-[#0A66C2] underline">Privacy Policy</a>, and{" "}
           <a href="#" className="text-[#0A66C2] underline">Cookie Policy</a>.
         </div>
-        {/* New user? */}
         <div className="mb-6">
           <span className="text-gray-600">New to LinkedClone? </span>
           <button
@@ -147,7 +121,6 @@ const Login = () => {
             Join now
           </button>
         </div>
-        {/* Illustration */}
         <div className="w-full flex justify-center">
           <img
             alt="Illustration"

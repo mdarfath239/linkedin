@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Navbar from "@/components/Navbar";
 import { Search } from "lucide-react";
 import { useSupabaseAuth } from "@/hooks/useSupabaseAuth";
 import { useConversations } from "@/hooks/useConversations";
@@ -125,7 +126,8 @@ const Messaging = () => {
   if (!user) return <div className="p-10 text-center text-red-500">Please log in to view messages.</div>;
 
   return (
-    <div className="flex w-full min-h-[85vh] bg-[#F3F6F8] justify-center py-10">
+    <div className="flex flex-col w-full min-h-[85vh] bg-[#F3F6F8] justify-center py-10">
+      <Navbar />
       <div className="w-full max-w-6xl flex rounded-lg shadow bg-white border border-gray-200 min-h-[600px]">
         {/* Left: Inbox Sidebar */}
         <div className="w-[340px] border-r bg-[#fafbfc] flex flex-col">

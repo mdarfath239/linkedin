@@ -1,113 +1,88 @@
 
 import React, { useState } from "react";
 import { Search } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
-const Navbar = ({
-  onSearch,
-  onMeClick,
-}: {
-  onSearch: (q: string) => void;
-  onMeClick: () => void;
-}) => {
+const navLinks = [
+  { to: "/", label: "Home" },
+  { to: "/my-network", label: "My Network" },
+  { to: "/jobs", label: "Jobs" },
+  { to: "/messaging", label: "Messaging" },
+  { to: "/notifications", label: "Notifications" },
+  { to: "/me", label: "Me" },
+];
+
+const Navbar = () => {
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
-
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
-    onSearch(e.target.value);
-  };
+  const location = useLocation();
 
   return (
-    <nav className="bg-white flex items-center justify-between px-2 sm:px-6 py-2 sm:py-3 border-b shadow-sm">
-      {/* Logo and search */}
-      <div className="flex items-center gap-2 sm:gap-4">
-        <div className="flex items-center text-2xl font-bold text-[#0A66C2] mr-2">
-          <a href="/" className="flex items-center gap-2">
-            {/* LinkEdit "logo" as styled text */}
-            <span className="font-black text-xl tracking-tight text-[#0A66C2]">LinkEdit</span>
-          </a>
+    <nav className="bg-white flex items-center justify-between px-4 py-2 border-b shadow-sm z-30 relative">
+      {/* Left | Logo & Search */}
+      <div className="flex items-center gap-6">
+        {/* Logo */}
+        <div
+          className="flex items-center text-2xl font-black text-[#1573cf] cursor-pointer"
+          onClick={() => navigate("/")}
+        >
+          Link<span className="font-black text-[#0A66C2]">Edit</span>
         </div>
-        <div className="relative max-w-[140px] sm:max-w-none">
-          <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <Search className="w-5 h-5 text-gray-400" />
-          </div>
+        {/* Search Bar */}
+        <div className="relative w-56">
+          <span className="absolute left-3 top-2 text-gray-400">
+            <Search size={18} />
+          </span>
           <input
-            type="search"
-            id="default-search"
-            className="block w-full p-2 pl-10 text-xs sm:text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-[#0A66C2] focus:border-[#0A66C2]"
+            type="text"
             placeholder="Search..."
-            required
+            className="pl-10 pr-4 py-1.5 text-base bg-white border rounded-full focus:outline-none focus:ring-2 focus:ring-[#0A66C2] w-full"
             value={search}
-            onChange={handleSearch}
+            onChange={e => setSearch(e.target.value)}
+            style={{fontWeight: 400, color: "#555"}}
           />
         </div>
-        {/* Main nav links, hidden on xs */}
-        <a
-          href="/"
-          className="hidden sm:flex flex-col items-center px-3 py-1 text-sm font-medium text-gray-700 hover:text-[#0A66C2] border-b-2 border-transparent hover:border-[#0A66C2] transition"
-        >
-          Home
-        </a>
-        <a
-          href="/my-network"
-          className="hidden sm:flex flex-col items-center px-3 py-1 text-sm font-medium text-gray-700 hover:text-[#0A66C2] border-b-2 border-transparent hover:border-[#0A66C2] transition"
-        >
-          My Network
-        </a>
-        <a
-          href="/jobs"
-          className="hidden sm:flex flex-col items-center px-3 py-1 text-sm font-medium text-gray-700 hover:text-[#0A66C2] border-b-2 border-transparent hover:border-[#0A66C2] transition"
-        >
-          Jobs
-        </a>
-        <a
-          href="/messaging"
-          className="hidden sm:flex flex-col items-center px-3 py-1 text-sm font-medium text-gray-700 hover:text-[#0A66C2] border-b-2 border-transparent hover:border-[#0A66C2] transition"
-        >
-          Messaging
-        </a>
-        <a
-          href="/notifications"
-          className="hidden sm:flex flex-col items-center px-3 py-1 text-sm font-medium text-gray-700 hover:text-[#0A66C2] border-b-2 border-transparent hover:border-[#0A66C2] transition"
-        >
-          Notifications
-        </a>
-        <a
-          href="/me"
-          className="hidden sm:flex flex-col items-center px-3 py-1 text-sm font-medium text-gray-700 hover:text-[#0A66C2] border-b-2 border-transparent hover:border-[#0A66C2] transition"
-        >
-          Me
-        </a>
       </div>
-      {/* Profile/Me link and auth */}
-      <div className="flex items-center gap-2 sm:gap-4">
+      {/* Center | Navigation Links */}
+      <div className="flex items-center gap-8">
+        {navLinks.map((link) => (
+          <button
+            key={link.to}
+            onClick={() => navigate(link.to)}
+            className={`
+              bg-transparent outline-none border-0 text-base font-medium px-1 transition
+              ${location.pathname === link.to ? "text-[#0A66C2] font-semibold" : "text-gray-800"}
+            `}
+            style={{ minWidth: 0 }}
+          >
+            {link.label}
+          </button>
+        ))}
+      </div>
+      {/* Right | Auth and Profile actions */}
+      <div className="flex items-center gap-3">
         <button
+          className="text-[#0A66C2] border border-[#0A66C2] rounded-full px-5 py-1.5 font-semibold text-base bg-white hover:bg-[#eaf2fa] transition"
           onClick={() => navigate("/login")}
-          className="border-2 border-[#0A66C2] text-[#0A66C2] rounded-full px-4 py-1.5 text-xs sm:text-base font-semibold hover:bg-[#0A66C2] hover:text-white transition"
         >
           Sign in
         </button>
         <button
+          className="bg-[#0A66C2] hover:bg-[#1573cf] transition text-white rounded-full px-6 py-1.5 font-bold text-base shadow-none border-0"
           onClick={() => navigate("/signup")}
-          className="rounded-full px-4 py-1.5 text-xs sm:text-base bg-[#0A66C2] text-white font-semibold hover:bg-[#004182] border-2 border-[#0A66C2] transition"
         >
           Join now
         </button>
-        <button
-          onClick={onMeClick}
-          className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 px-2 sm:px-4 py-2 rounded-full transition"
-        >
-          {/* Placeholder for profile image */}
-          <div className="w-8 h-8 rounded-full bg-[#E5EAF0] flex items-center justify-center overflow-hidden border border-gray-300">
-            {/* Empty avatar SVG, no face */}
-            <svg width={30} height={30} viewBox="0 0 64 64" fill="none">
-              <circle cx="32" cy="24" r="12" fill="#B0B8C1" opacity="0.35" />
-              <ellipse cx="32" cy="48" rx="18" ry="8" fill="#B0B8C1" opacity="0.35" />
+        <div className="flex items-center gap-1 px-3 py-1.5 bg-gray-100 rounded-full cursor-pointer hover:bg-gray-200 transition select-none ml-1">
+          <div className="w-7 h-7 rounded-full bg-[#E5EAF0] flex items-center justify-center overflow-hidden border border-gray-200">
+            {/* Empty avatar SVG */}
+            <svg width={22} height={22} viewBox="0 0 32 32" fill="none">
+              <circle cx="16" cy="12" r="7" fill="#B0B8C1" opacity="0.35" />
+              <ellipse cx="16" cy="25" rx="11" ry="5" fill="#B0B8C1" opacity="0.35" />
             </svg>
           </div>
-          <span className="hidden sm:inline text-sm font-medium">Me</span>
-        </button>
+          <span className="ml-1 text-base text-black font-medium">Me</span>
+        </div>
       </div>
     </nav>
   );

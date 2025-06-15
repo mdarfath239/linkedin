@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Navbar from "@/components/Navbar";
 import { Briefcase, Bookmark, List, Star, BookOpen, Folder, PlusCircle, ThumbsUp } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -208,6 +209,7 @@ function JobCollections() {
 
 const Jobs = () => (
   <div className="min-h-screen w-full bg-[#F3F6F8] flex flex-col items-center px-2 py-8">
+    <Navbar />
     <div className="w-full max-w-6xl flex flex-row gap-6">
       {/* Left */}
       <div className="hidden lg:flex flex-col w-[300px] min-w-[220px] gap-6">

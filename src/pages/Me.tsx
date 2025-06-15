@@ -1,4 +1,5 @@
 import React from "react";
+import Navbar from "@/components/Navbar";
 import { Plus, Pencil } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
@@ -25,6 +26,7 @@ const universityLogo = "https://upload.wikimedia.org/wikipedia/en/1/1c/Visvesvar
 const Me: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#f3f6f8] flex flex-col items-center px-1 sm:px-2 py-4 sm:py-8">
+      <Navbar />
       <div className="w-full max-w-[900px] flex flex-col lg:flex-row gap-6">
         {/* Main - Profile card */}
         <div className="flex-1">

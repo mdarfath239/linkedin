@@ -1,5 +1,5 @@
-
 import React, { useState } from "react";
+import Navbar from "@/components/Navbar";
 import { Users } from "lucide-react";
 
 const manageItems = [
@@ -43,6 +43,7 @@ export default function MyNetwork() {
 
   return (
     <div className="min-h-screen w-full bg-gray-100 pt-4">
+      <Navbar />
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-6 px-4">
         {/* Left Side - Manage my network */}
         <aside className="md:w-1/4 w-full">

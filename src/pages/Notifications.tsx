@@ -1,6 +1,6 @@
-
 import React from "react";
 import { Bell } from "lucide-react";
+import Navbar from "@/components/Navbar";
 
 const notifications = [
   {
@@ -82,6 +82,7 @@ const NotificationCard = ({ notification }: { notification: typeof notifications
 const Notifications = () => {
   return (
     <div className="min-h-screen bg-[#F3F6F8] flex flex-col items-center px-2 py-8 w-full">
+      <Navbar />
       <div className="w-full max-w-2xl bg-white rounded-xl shadow border p-0 md:p-6 flex flex-col gap-2">
         <div className="flex items-center gap-3 border-b pb-4 px-4 pt-4 md:p-0">
           <Bell className="text-[#0A66C2] w-8 h-8" />
