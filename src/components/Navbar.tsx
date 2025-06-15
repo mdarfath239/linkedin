@@ -62,7 +62,7 @@ const Navbar = ({
           Messaging
         </a>
         <a
-          href="/"
+          href="/notifications"
           className="flex flex-col items-center px-3 py-1 text-sm font-medium text-gray-700 hover:text-[#0A66C2] border-b-2 border-transparent hover:border-[#0A66C2] transition"
         >
           Notifications
