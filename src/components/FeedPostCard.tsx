@@ -24,6 +24,7 @@ export interface FeedPostCardProps {
   onReact: (type: string) => void;
   onComment: (text: string) => void;
   onShare: () => void;
+  isLiked?: boolean;
 }
 
 const FeedPostCard: React.FC<FeedPostCardProps> = ({
@@ -31,6 +32,7 @@ const FeedPostCard: React.FC<FeedPostCardProps> = ({
   onReact,
   onComment,
   onShare,
+  isLiked = false,
 }) => {
   const [showComments, setShowComments] = useState(false);
 
@@ -68,8 +70,17 @@ const FeedPostCard: React.FC<FeedPostCardProps> = ({
       </div>
       <hr className="mb-2" />
       <div className="flex justify-between">
-        <FeedAction Icon={ThumbsUp} label="Like" onClick={() => onReact("like")} />
-        <FeedAction Icon={MessageSquare} label="Comment" onClick={() => setShowComments((c) => !c)} />
+        <FeedAction
+          Icon={ThumbsUp}
+          label="Like"
+          onClick={() => onReact("like")}
+          active={isLiked}
+        />
+        <FeedAction
+          Icon={MessageSquare}
+          label="Comment"
+          onClick={() => setShowComments((c) => !c)}
+        />
         <FeedAction Icon={Share2} label="Share" onClick={onShare} />
       </div>
       {showComments && (
@@ -86,19 +97,31 @@ function FeedAction({
   Icon,
   label,
   onClick,
+  active,
 }: {
   Icon: React.ComponentType<{ className?: string }>;
   label: string;
   onClick: () => void;
+  active?: boolean;
 }) {
+  // Change color on Like if active
+  const isLike = label === "Like";
+  const activeColor = isLike && active ? "#0A66C2" : undefined;
   return (
     <button
-      className="group flex items-center gap-1 px-2 py-1 rounded hover:bg-gray-100 transition-colors text-gray-500 font-medium text-sm"
+      className={`group flex items-center gap-1 px-2 py-1 rounded hover:bg-gray-100 transition-colors text-gray-500 font-medium text-sm ${isLike && active ? "text-[#0A66C2]" : ""}`}
       onClick={onClick}
       type="button"
+      disabled={isLike && active} // disable if already liked
     >
-      <Icon className="w-5 h-5 group-hover:text-[#0A66C2]" />
-      <span className="group-hover:text-[#0A66C2]">{label}</span>
+      <Icon
+        className={`w-5 h-5 group-hover:text-[#0A66C2] ${
+          isLike && active ? "text-[#0A66C2]" : ""
+        }`}
+      />
+      <span className={`group-hover:text-[#0A66C2] ${isLike && active ? "text-[#0A66C2]" : ""}`}>
+        {label}
+      </span>
     </button>
   );
 }

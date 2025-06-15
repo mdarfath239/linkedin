@@ -78,6 +78,8 @@ const CURRENT_USER = {
 
 const Feed = () => {
   const [posts, setPosts] = useState(INITIAL_POSTS);
+  // Track which posts are liked (by ID)
+  const [likedPosts, setLikedPosts] = useState<Record<number, boolean>>({});
 
   const handleCreatePost = ({
     content,
@@ -101,9 +103,10 @@ const Feed = () => {
   };
 
   const handleReact = (id: number, type: string) => {
+    setLikedPosts((prev) => ({ ...prev, [id]: true }));
     setPosts((prev) =>
       prev.map((post) =>
-        post.id === id
+        post.id === id && type === "like" && !likedPosts[id]
           ? {
               ...post,
               reactions: {
@@ -166,9 +169,13 @@ const Feed = () => {
         <FeedPostCard
           key={post.id}
           post={post}
-          onReact={(type) => handleReact(post.id, type)}
+          onReact={(type) => {
+            if (type === "like" && likedPosts[post.id]) return; // Do nothing if already liked
+            handleReact(post.id, type);
+          }}
           onComment={(text) => handleComment(post.id, text)}
           onShare={() => handleShare(post.id)}
+          isLiked={!!likedPosts[post.id]}
         />
       ))}
     </div>
