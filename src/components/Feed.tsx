@@ -144,24 +144,48 @@ const Feed = ({ searchQuery = "" }: { searchQuery?: string }) => {
     image?: string;
     video?: string;
   }) => {
-    // Only include "image" or "video", never both.
-    let postMedia: { image?: string; video?: string } = {};
+    let newPost;
     if (image && !video) {
-      postMedia.image = image;
+      newPost = {
+        id: Date.now(),
+        user: CURRENT_USER,
+        time: "now",
+        content,
+        image,             // required
+        likes: 0,
+        comments: 0,
+        reactions: { like: 0 },
+        allComments: [],
+        video: undefined,  // explicitly set as undefined for type
+      };
     } else if (video && !image) {
-      postMedia.video = video;
+      newPost = {
+        id: Date.now(),
+        user: CURRENT_USER,
+        time: "now",
+        content,
+        video,             // required
+        likes: 0,
+        comments: 0,
+        reactions: { like: 0 },
+        allComments: [],
+        image: undefined,  // explicitly set as undefined for type
+      };
+    } else {
+      // No media post (text only)
+      newPost = {
+        id: Date.now(),
+        user: CURRENT_USER,
+        time: "now",
+        content,
+        likes: 0,
+        comments: 0,
+        reactions: { like: 0 },
+        allComments: [],
+        image: undefined,
+        video: undefined,
+      };
     }
-    const newPost = {
-      id: Date.now(),
-      user: CURRENT_USER,
-      time: "now",
-      content,
-      likes: 0,
-      comments: 0,
-      reactions: { like: 0 },
-      allComments: [],
-      ...postMedia,
-    };
     setPosts([newPost, ...posts]);
   };
 
