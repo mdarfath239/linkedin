@@ -1,5 +1,6 @@
+
 import React, { useState } from "react";
-import { Bell, MessageSquare, Search } from "lucide-react";
+import { Search } from "lucide-react";
 
 const Navbar = ({
   onSearch,
@@ -19,8 +20,11 @@ const Navbar = ({
     <nav className="bg-white flex items-center justify-between px-6 py-3 border-b shadow-sm">
       {/* Logo and search */}
       <div className="flex items-center gap-4">
-        <div className="text-2xl font-bold text-[#0A66C2] mr-2">
-          <a href="/">LinkedClone</a>
+        <div className="flex items-center text-2xl font-bold text-[#0A66C2] mr-2">
+          <a href="/" className="flex items-center gap-2">
+            {/* LinkEdit "logo" as styled text */}
+            <span className="font-black text-xl tracking-tight text-[#0A66C2]">LinkEdit</span>
+          </a>
         </div>
         <div className="relative">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -92,11 +96,14 @@ const Navbar = ({
           onClick={onMeClick}
           className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-full transition"
         >
-          <img
-            src="https://randomuser.me/api/portraits/men/11.jpg"
-            alt="Profile"
-            className="w-8 h-8 rounded-full object-cover"
-          />
+          {/* Placeholder for profile image */}
+          <div className="w-8 h-8 rounded-full bg-[#E5EAF0] flex items-center justify-center overflow-hidden border border-gray-300">
+            {/* Empty avatar SVG, no face */}
+            <svg width={30} height={30} viewBox="0 0 64 64" fill="none">
+              <circle cx="32" cy="24" r="12" fill="#B0B8C1" opacity="0.35" />
+              <ellipse cx="32" cy="48" rx="18" ry="8" fill="#B0B8C1" opacity="0.35" />
+            </svg>
+          </div>
           <span className="text-sm font-medium">Me</span>
         </button>
       </div>

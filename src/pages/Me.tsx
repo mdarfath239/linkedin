@@ -4,8 +4,23 @@ import { Plus, Pencil } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 
+// Placeholder SVG (no real face) for avatar
+const AvatarPlaceholder = () => (
+  <svg
+    width={128}
+    height={128}
+    viewBox="0 0 128 128"
+    fill="none"
+    className="w-32 h-32"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle cx="64" cy="48" r="28" fill="#E5EAF0" stroke="#B0B8C1" strokeWidth="2" />
+    <ellipse cx="64" cy="96" rx="40" ry="24" fill="#E5EAF0" stroke="#B0B8C1" strokeWidth="2" />
+    <circle cx="64" cy="48" r="10" fill="#B0B8C1" opacity="0.5" />
+  </svg>
+);
+
 const profileBG = "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=900&q=80";
-const avatarImage = "https://randomuser.me/api/portraits/men/11.jpg";
 const universityLogo = "https://upload.wikimedia.org/wikipedia/en/1/1c/Visvesvaraya_Technological_University_logo.png";
 
 const Me: React.FC = () => {
@@ -22,28 +37,22 @@ const Me: React.FC = () => {
                 alt="Cover"
                 className="object-cover w-full h-full"
               />
-              {/* Banner Edit Icon */}
-              <button className="absolute top-3 right-3 bg-white bg-opacity-80 rounded-full p-2 hover:bg-opacity-100 border transition">
-                <Pencil size={18} />
-              </button>
             </div>
-            {/* Avatar */}
-            <div className="absolute left-8 -bottom-10">
-              <div className="relative group">
-                <img
-                  src={avatarImage}
-                  alt="Avatar"
-                  className="w-32 h-32 rounded-full border-4 border-white shadow-lg object-cover"
-                />
+            {/* Avatar - moved to top, overlapping the banner */}
+            <div className="absolute left-1/2 -translate-x-1/2 -top-14 flex flex-col items-center">
+              <div className="relative group w-32 h-32">
+                <div className="w-32 h-32 rounded-full border-4 border-white shadow-lg bg-[#E5EAF0] flex items-center justify-center overflow-hidden">
+                  <AvatarPlaceholder />
+                </div>
                 {/* Upload/Edit button */}
-                <button className="absolute bottom-2 right-2 bg-white border rounded-full p-1.5 hover:bg-blue-100 transition">
+                <button className="absolute bottom-2 right-2 bg-white border-2 border-blue-500 text-blue-500 rounded-full p-1.5 hover:bg-blue-50 transition">
                   <Plus className="text-[#0A66C2]" size={22} />
                 </button>
               </div>
             </div>
             {/* Main content */}
-            <div className="pt-16 pl-44 pr-4 pb-4 flex flex-col gap-1 relative">
-              <div className="flex items-center gap-2">
+            <div className="pt-24 pb-4 px-6 flex flex-col gap-1 relative">
+              <div className="flex items-center gap-2 justify-center">
                 <span className="text-2xl font-bold">Mohammed Arfath</span>
                 <TooltipProvider>
                   <Tooltip>
@@ -65,25 +74,26 @@ const Me: React.FC = () => {
                   <Pencil size={16} />
                 </button>
               </div>
-              <div className="text-sm text-gray-700 font-medium mt-1">
+              <div className="text-sm text-gray-700 font-medium mt-1 text-center">
                 "Full Stack MERN Developer | React.js | Node.js | MongoDB | Express.js | Next.js | RESTful APIs ... Passionate about Building Responsive & User-Centric Web Applications"
               </div>
-              <div className="flex items-center text-xs text-gray-500 mt-1 gap-2">
+              <div className="flex items-center text-xs text-gray-500 mt-1 gap-2 justify-center">
                 Bengaluru, Karnataka, India •
                 <a href="#" className="text-[#0A66C2] hover:underline">Contact info</a>
               </div>
-              <a href="https://github.com/mdarfath239" className="text-xs text-blue-700 hover:underline">https://github.com/mdarfath239</a>
-              {/* Followers, Connections, University */}
-              <div className="flex flex-wrap gap-4 mt-2 mb-4 items-center">
-                <span className="text-[#0A66C2] font-semibold text-sm">746 followers</span>
-                <span className="text-[#0A66C2] text-sm">• 500+ connections</span>
-                <div className="flex items-center gap-1 ml-auto pr-2">
-                  <img src={universityLogo} alt="University" className="w-7 h-7 rounded-full border" />
-                  <span className="text-xs text-gray-700 font-semibold whitespace-nowrap">Visvesvaraya Technological University</span>
+              <div className="flex flex-col items-center gap-1 mt-1">
+                <a href="https://github.com/mdarfath239" className="text-xs text-blue-700 hover:underline">https://github.com/mdarfath239</a>
+                <div className="flex flex-wrap gap-4 mt-2 mb-4 items-center justify-center">
+                  <span className="text-[#0A66C2] font-semibold text-sm">746 followers</span>
+                  <span className="text-[#0A66C2] text-sm">• 500+ connections</span>
+                  <div className="flex items-center gap-1 pl-2">
+                    <img src={universityLogo} alt="University" className="w-7 h-7 rounded-full border" />
+                    <span className="text-xs text-[#44A33A] font-semibold whitespace-nowrap">Visvesvaraya Technological University</span>
+                  </div>
                 </div>
               </div>
               {/* Profile actions */}
-              <div className="flex flex-wrap gap-3 mt-2">
+              <div className="flex flex-wrap gap-3 mt-2 justify-center">
                 <Button variant="outline" className="border-[#0A66C2] text-[#0A66C2] hover:bg-[#eaf2fa]">Open to</Button>
                 <Button variant="outline" className="border-[#0A66C2] text-[#0A66C2] hover:bg-[#eaf2fa]">Add profile section</Button>
                 <Button variant="outline" className="border-[#0A66C2] text-[#0A66C2] hover:bg-[#eaf2fa]">Enhance profile</Button>
