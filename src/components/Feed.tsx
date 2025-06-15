@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import FeedPostCard from "./FeedPostCard";
 import CreatePostModal from "./CreatePostModal";
@@ -10,7 +9,7 @@ const INITIAL_USER = {
   title: "Product Designer at EditNow",
 };
 
-// Example initial posts (video post added!)
+// Example initial posts (fixed: only image OR video, never both)
 const INITIAL_POSTS = [
   {
     id: 1,
@@ -68,7 +67,7 @@ const INITIAL_POSTS = [
       },
     ],
   },
-  // New posts:
+  // Video post (no image)
   {
     id: 3,
     user: {
@@ -99,6 +98,7 @@ const INITIAL_POSTS = [
     reactions: { like: 1 },
     allComments: [],
   },
+  // Video post (no image)
   {
     id: 5,
     user: {
