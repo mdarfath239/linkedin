@@ -122,7 +122,7 @@ const CURRENT_USER = {
   title: "Frontend Developer at LinkEdit",
 };
 
-const Feed = () => {
+const Feed = ({ searchQuery = "" }: { searchQuery?: string }) => {
   const [posts, setPosts] = useState(INITIAL_POSTS);
   const [likedPosts, setLikedPosts] = useState<Record<number, boolean>>({});
 
@@ -203,6 +203,13 @@ const Feed = () => {
     setPosts([sharedPost, ...posts]);
   };
 
+  // Filter by search query (simple case-insensitive match in content)
+  const filteredPosts = searchQuery
+    ? posts.filter((post) =>
+        post.content.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : posts;
+
   return (
     <div className="w-full space-y-4">
       <div className="bg-white rounded-lg shadow border border-gray-200 p-5 flex gap-3 items-center">
@@ -213,7 +220,7 @@ const Feed = () => {
         />
         <CreatePostModal onCreate={handleCreatePost} />
       </div>
-      {posts.map((post) => (
+      {filteredPosts.map((post) => (
         <FeedPostCard
           key={post.id}
           post={post}
@@ -226,6 +233,11 @@ const Feed = () => {
           isLiked={!!likedPosts[post.id]}
         />
       ))}
+      {!filteredPosts.length && (
+        <div className="text-center text-gray-400 text-lg font-medium py-10">
+          No posts found.
+        </div>
+      )}
     </div>
   );
 };

@@ -1,17 +1,19 @@
 
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { User, Bell, MessageSquare, Briefcase, Search } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import ProfileModal from "./ProfileModal";
 
-const Navbar = () => {
+const Navbar = ({ onSearch, onMeClick }: { onSearch?: (q: string) => void; onMeClick?: () => void }) => {
   const { toast } = useToast();
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   // Search handler
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const value = searchInputRef.current?.value.trim();
+    const value = searchInputRef.current?.value.trim() || "";
     if (!value) return;
+    onSearch?.(value);
     toast({
       title: "Search",
       description: `You searched for: "${value}"`,
@@ -70,7 +72,7 @@ const Navbar = () => {
           <NavIcon Icon={Briefcase} label="Jobs" />
           <NavIcon Icon={MessageSquare} label="Messaging" onClick={handleMessaging} />
           <NavIcon Icon={Bell} label="Notifications" onClick={handleNotifications} />
-          <NavIcon Icon={User} label="Me" />
+          <NavIcon Icon={User} label="Me" onClick={onMeClick} />
         </div>
       </nav>
     </header>
