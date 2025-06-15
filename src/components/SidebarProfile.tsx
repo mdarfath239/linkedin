@@ -30,7 +30,7 @@ const SidebarProfile = () => {
       <div className="pt-12 pb-2 px-5 flex flex-col items-center text-center">
         <div className="flex items-center gap-1">
           <span className="font-semibold text-lg leading-tight truncate max-w-[170px]">Mohammed Arfath</span>
-          <ShieldCheck className="w-4 h-4 text-[#0A66C2]" title="Verified" />
+          <ShieldCheck className="w-4 h-4 text-[#0A66C2]" />
         </div>
         <div className="text-xs text-gray-500 mt-1">"Full-Stack MERN Developer | React.js | Node.js | MongoDB | ..."</div>
         <div className="text-xs text-gray-500 mt-1 mb-2">Bengaluru, Karnataka</div>
@@ -80,4 +80,3 @@ function SidebarLink({ icon, label }: { icon: React.ReactNode; label: string }) 
 }
 
 export default SidebarProfile;
-
