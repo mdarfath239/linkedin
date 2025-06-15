@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Plus, Pencil } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -38,8 +37,8 @@ const Me: React.FC = () => {
                 className="object-cover w-full h-full"
               />
             </div>
-            {/* Avatar - overlapping the banner */}
-            <div className="absolute left-1/2 -translate-x-1/2 -top-12 sm:-top-14 flex flex-col items-center">
+            {/* Avatar - overlapping the banner, but a bit further down */}
+            <div className="absolute left-1/2 -translate-x-1/2" style={{ top: "78px" }}>
               <div className="relative group w-24 h-24 sm:w-32 sm:h-32">
                 <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full border-4 border-white shadow-lg bg-[#E5EAF0] flex items-center justify-center overflow-hidden">
                   <AvatarPlaceholder />
@@ -51,7 +50,7 @@ const Me: React.FC = () => {
               </div>
             </div>
             {/* Main content */}
-            <div className="pt-20 sm:pt-24 pb-4 px-3 sm:px-6 flex flex-col gap-1 relative">
+            <div className="pt-28 sm:pt-32 pb-4 px-3 sm:px-6 flex flex-col gap-1 relative">
               <div className="flex flex-col xs:flex-row items-center gap-2 justify-center min-h-[40px]">
                 <span className="text-xl sm:text-2xl font-bold">Mohammed Arfath</span>
                 <TooltipProvider>
@@ -136,4 +135,3 @@ const Me: React.FC = () => {
 };
 
 export default Me;
-
