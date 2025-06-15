@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import FeedPostCard from "./FeedPostCard";
 import CreatePostModal from "./CreatePostModal";
@@ -148,12 +149,12 @@ const Feed = ({ searchQuery = "" }: { searchQuery?: string }) => {
       user: CURRENT_USER,
       time: "now",
       content,
-      image,
-      video,
       likes: 0,
       comments: 0,
       reactions: { like: 0 },
       allComments: [],
+      ...(image && { image }),
+      ...(video && { video }),
     };
     setPosts([newPost, ...posts]);
   };
