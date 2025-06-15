@@ -1,8 +1,8 @@
-
 import Navbar from "@/components/Navbar";
 import SidebarProfile from "@/components/SidebarProfile";
 import Feed from "@/components/Feed";
 import SidebarSuggestions from "@/components/SidebarSuggestions";
+import SidebarNewsCard from "@/components/SidebarNewsCard";
 
 const Index = () => {
   return (
@@ -19,6 +19,7 @@ const Index = () => {
         </section>
         {/* Right sidebar */}
         <aside className="hidden 2xl:block w-[340px] flex-shrink-0">
+          <SidebarNewsCard />
           <SidebarSuggestions />
         </aside>
       </main>
