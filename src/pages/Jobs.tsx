@@ -1,7 +1,7 @@
-
-import React from "react";
-import { Briefcase, Bookmark, List, Star, BookOpen, Folder, PlusCircle } from "lucide-react";
+import React, { useState } from "react";
+import { Briefcase, Bookmark, List, Star, BookOpen, Folder, PlusCircle, ThumbsUp } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const jobLists = [
   {
@@ -39,6 +39,24 @@ const jobLists = [
   }
 ];
 
+// Like button with blue background toggle
+const LikeButton = ({ liked, onClick }: { liked: boolean, onClick: () => void }) => (
+  <button
+    type="button"
+    aria-label="Like this job"
+    onClick={onClick}
+    className={`
+      flex items-center gap-1 px-3 py-1 rounded transition-colors
+      border border-blue-100
+      ${liked ? "bg-[#0A66C2] text-white" : "bg-white text-[#0A66C2] hover:bg-blue-50"}
+      shadow-sm
+    `}
+  >
+    <ThumbsUp size={18} />
+    {liked ? "Liked" : "Like"}
+  </button>
+);
+
 function ProfileSummary() {
   return (
     <div className="bg-white rounded-xl border shadow p-6 flex flex-col items-center gap-3 mb-4">
@@ -50,7 +68,7 @@ function ProfileSummary() {
         />
         <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 z-10">
           <div className="w-20 h-20 bg-gray-200 rounded-full border-4 border-white flex items-center justify-center">
-            <span className="text-4xl text-gray-400"> {/* Just a user icon look */}👤</span>
+            <span className="text-4xl text-gray-400">👤</span>
           </div>
           <button className="absolute bottom-2 right-2 bg-[#0A66C2] w-7 h-7 flex items-center justify-center rounded-full border border-white hover:bg-blue-700 transition"><PlusCircle size={18} className="text-white" /></button>
         </div>
@@ -89,7 +107,9 @@ function Sidebar() {
   );
 }
 
+// Modified JobsSuggestions with Like button and properly loaded images
 function JobsSuggestions() {
+  const [likedJobs, setLikedJobs] = useState<{ [id: number]: boolean }>({});
   return (
     <div className="bg-white rounded-xl border shadow p-6 mb-4">
       <div className="text-xl font-bold mb-2">Top job picks for you</div>
@@ -98,18 +118,28 @@ function JobsSuggestions() {
       </div>
       <ul>
         {jobLists.map(job => (
-          <li key={job.id} className="flex items-start gap-4 border-b last:border-b-0 border-gray-200 py-3">
+          <li
+            key={job.id}
+            className="flex items-start gap-4 border-b last:border-b-0 border-gray-200 py-3 relative"
+          >
             <img
               src={job.logo}
-              alt={job.company}
+              alt={job.company + " logo"}
               className="w-12 h-12 object-contain rounded bg-gray-50 border"
+              onError={e => {
+                // fallback image if logo fails
+                (e.target as HTMLImageElement).src = "/placeholder.svg";
+              }}
             />
             <div className="flex-1 min-w-0">
               <div className="flex gap-1 items-center mb-0.5">
                 <span className="font-semibold">{job.title}</span>
                 {job.verified && <span className="text-blue-600 ml-1">&#10003;</span>}
               </div>
-              <div className="text-sm text-gray-700 font-medium">{job.company} <span className="mx-1">·</span> <span className="text-xs text-gray-500">{job.location}</span></div>
+              <div className="text-sm text-gray-700 font-medium">
+                {job.company} <span className="mx-1">·</span>
+                <span className="text-xs text-gray-500">{job.location}</span>
+              </div>
               {job.activelyReviewing && (
                 <div className="flex items-center gap-1 mt-1 text-xs text-green-700 font-semibold">
                   <span className="material-icons" style={{fontSize: '1rem'}}>check_circle</span>
@@ -127,7 +157,24 @@ function JobsSuggestions() {
                 )}
               </div>
             </div>
-            <button className="ml-2 text-gray-400 hover:text-gray-600 cursor-pointer" aria-label="Dismiss">×</button>
+            {/* Like Button */}
+            <div className="flex flex-col gap-2 items-end">
+              <LikeButton
+                liked={!!likedJobs[job.id]}
+                onClick={() =>
+                  setLikedJobs(prev => ({
+                    ...prev,
+                    [job.id]: !prev[job.id]
+                  }))
+                }
+              />
+              <button
+                className="ml-2 text-gray-400 hover:text-gray-600 cursor-pointer"
+                aria-label="Dismiss"
+              >
+                ×
+              </button>
+            </div>
           </li>
         ))}
       </ul>
@@ -175,7 +222,7 @@ const Jobs = () => (
       {/* Right - empty for now */}
       <div className="hidden xl:block w-[50px]"/>
     </div>
-    {/* Footer: mimic LinkedIn */}
+    {/* Footer */}
     <footer className="w-full flex flex-col items-center justify-center text-xs text-gray-400 mt-8 pb-3 gap-2">
       <div className="flex flex-wrap gap-4">
         <span>About</span>
