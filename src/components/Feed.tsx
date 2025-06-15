@@ -144,6 +144,13 @@ const Feed = ({ searchQuery = "" }: { searchQuery?: string }) => {
     image?: string;
     video?: string;
   }) => {
+    // Only include "image" or "video", never both.
+    let postMedia: { image?: string; video?: string } = {};
+    if (image && !video) {
+      postMedia.image = image;
+    } else if (video && !image) {
+      postMedia.video = video;
+    }
     const newPost = {
       id: Date.now(),
       user: CURRENT_USER,
@@ -153,8 +160,7 @@ const Feed = ({ searchQuery = "" }: { searchQuery?: string }) => {
       comments: 0,
       reactions: { like: 0 },
       allComments: [],
-      ...(image && { image }),
-      ...(video && { video }),
+      ...postMedia,
     };
     setPosts([newPost, ...posts]);
   };
