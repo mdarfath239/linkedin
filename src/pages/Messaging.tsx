@@ -1,6 +1,10 @@
-
 import React, { useState } from "react";
 import { Search } from "lucide-react";
+import { useSupabaseAuth } from "@/hooks/useSupabaseAuth";
+import { useConversations } from "@/hooks/useConversations";
+import { useRealtimeMessages } from "@/hooks/useMessages";
+import AttachmentUploader from "@/components/AttachmentUploader";
+import { supabase } from "@/integrations/supabase/client";
 
 const CONVERSATIONS = [
   {
@@ -67,14 +71,58 @@ const TABS = [
 ];
 
 const Messaging = () => {
+  const { user, loading } = useSupabaseAuth();
   const [activeTab, setActiveTab] = useState("Focused");
   const [search, setSearch] = useState("");
-  const [selected, setSelected] = useState(CONVERSATIONS[0]);
+  const [selected, setSelected] = useState<any>(null);
 
-  // Filter conversations based on search
-  const filteredConversations = CONVERSATIONS.filter((c) =>
-    c.name.toLowerCase().includes(search.toLowerCase())
-  );
+  // Fetch conversations where user is a participant
+  const { conversations, loading: loadingConvos } = useConversations(user?.id || null);
+
+  // Messages in the selected conversation
+  const { messages, loading: loadingMsgs, refetch } = useRealtimeMessages(selected?.id || null);
+  const [messageInput, setMessageInput] = useState("");
+  const [sending, setSending] = useState(false);
+
+  // Send text/attachment
+  async function sendMessage({ content, file }: { content?: string; file?: File }) {
+    if (!selected || !user || (!content && !file)) return;
+    setSending(true);
+
+    let attachment_url = null;
+    let attachment_type = null;
+
+    if (file) {
+      // Upload to Supabase Storage (create 'chat-files' bucket if not exists!)
+      const fileName = `${selected.id}/${Date.now()}_${file.name}`;
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from("chat-files")
+        .upload(fileName, file);
+
+      if (uploadError) {
+        alert("Failed to upload attachment");
+        setSending(false);
+        return;
+      }
+      attachment_url = uploadData?.path;
+      attachment_type = file.type;
+    }
+
+    await supabase.from("messages").insert({
+      conversation_id: selected.id,
+      sender_id: user.id,
+      content: content ?? "",
+      attachment_url,
+      attachment_type
+    });
+
+    setMessageInput("");
+    setSending(false);
+    setTimeout(refetch, 200); // Refetch in case realtime is delayed
+  }
+
+  if (loading) return <div className="p-10 text-center">Loading auth...</div>;
+  if (!user) return <div className="p-10 text-center text-red-500">Please log in to view messages.</div>;
 
   return (
     <div className="flex w-full min-h-[85vh] bg-[#F3F6F8] justify-center py-10">
@@ -112,45 +160,37 @@ const Messaging = () => {
             </div>
           </div>
           <div className="flex-1 overflow-y-auto">
-            {filteredConversations.map((conv) => (
-              <div
-                key={conv.id}
-                className={`flex items-center gap-3 py-3 px-4 cursor-pointer ${
-                  selected?.id === conv.id
-                    ? "bg-[#e5f3ed]"
-                    : "hover:bg-[#f6f6f9]"
-                }`}
-                onClick={() => setSelected(conv)}
-              >
-                <img
-                  src={conv.avatar}
-                  alt={conv.name}
-                  className="w-10 h-10 rounded-full object-cover border"
-                />
-                <div className="flex-1 min-w-0">
-                  <div className="flex justify-between items-center">
-                    <span className="font-semibold text-sm truncate">
-                      {conv.name}
-                    </span>
-                    <span className="text-xs text-gray-400">
-                      {conv.date}
-                    </span>
+            {loadingConvos ? (
+              <div className="p-6 text-center text-gray-400">Loading...</div>
+            ) : (
+              conversations.map(conv => (
+                <div
+                  key={conv.id}
+                  className={`flex items-center gap-3 py-3 px-4 cursor-pointer ${
+                    selected?.id === conv.id
+                      ? "bg-[#e5f3ed]"
+                      : "hover:bg-[#f6f6f9]"
+                  }`}
+                  onClick={() => setSelected(conv)}
+                >
+                  <div className="w-10 h-10 rounded-full object-cover border bg-blue-200 flex items-center justify-center">
+                    {conv.is_group ? (
+                      <span className="font-bold text-xl text-blue-700">👥</span>
+                    ) : (
+                      <span className="font-bold text-lg text-blue-700">💬</span>
+                    )}
                   </div>
-                  <div
-                    className={`text-xs truncate ${
-                      conv.unread ? "font-bold text-[#157347]" : "text-gray-500"
-                    }`}
-                  >
-                    {conv.snippet}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex justify-between items-center">
+                      <span className="font-semibold text-sm truncate">
+                        {conv.name || (conv.is_group ? "Group chat" : "Chat")}
+                      </span>
+                    </div>
+                    {/* ...optionally add last message/participant data here... */}
                   </div>
-                  {conv.sponsored && (
-                    <span className="text-[10px] text-[#f7b500] font-semibold">
-                      Sponsored
-                    </span>
-                  )}
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>
         {/* Center: Message content */}
@@ -158,43 +198,73 @@ const Messaging = () => {
           {selected ? (
             <>
               <div className="border-b flex items-center gap-3 px-6 py-3 bg-white">
-                <img
-                  src={selected.avatar}
-                  alt={selected.name}
-                  className="w-10 h-10 rounded-full object-cover border"
-                />
+                <div className="w-10 h-10 rounded-full bg-blue-200 flex justify-center items-center">{selected.is_group ? "👥" : "💬"}</div>
                 <div>
-                  <div className="font-bold">{selected.name}</div>
-                  {selected.sponsored && (
-                    <span className="text-xs text-[#f7b500]">Sponsored</span>
-                  )}
+                  <div className="font-bold">{selected.name || (selected.is_group ? "Group chat" : "Chat")}</div>
+                  {/* ...add participants or typing indicators later... */}
                 </div>
               </div>
               <div className="flex-1 p-6 overflow-y-auto flex flex-col gap-4">
-                {selected.messages.map((m) => (
-                  <div
-                    key={m.id}
-                    className="bg-[#f3f6f8] rounded-lg px-4 py-2 max-w-md"
-                  >
-                    <div className="text-sm font-semibold mb-1">
-                      {m.sender}
+                {loadingMsgs ? (
+                  <div className="text-gray-400">Loading chat...</div>
+                ) : (
+                  messages.map((m) => (
+                    <div
+                      key={m.id}
+                      className={`rounded-lg px-4 py-2 max-w-md ${m.sender_id === user.id ? "ml-auto bg-blue-100" : "bg-[#f3f6f8]"}`}
+                    >
+                      <div className="text-sm font-semibold mb-1">
+                        {m.sender_id === user.id ? "You" : m.sender_id}
+                        <span className="ml-2 text-xs text-gray-400">{new Date(m.created_at).toLocaleTimeString()}</span>
+                      </div>
+                      <div className="text-sm text-gray-800 break-words whitespace-pre-wrap">
+                        {m.content}
+                      </div>
+                      {m.attachment_url && (
+                        <div className="mt-2">
+                          <a
+                            href={supabase.storage.from("chat-files").getPublicUrl(m.attachment_url).data.publicUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 underline text-xs"
+                          >
+                            Attachment
+                          </a>
+                        </div>
+                      )}
+                      {/* ...read receipt UI can be added here next... */}
                     </div>
-                    <div className="text-sm text-gray-800">{m.text}</div>
-                    <div className="text-xs text-gray-400 mt-1">{m.time}</div>
-                  </div>
-                ))}
+                  ))
+                )}
               </div>
-              <div className="border-t p-4 flex items-center gap-3">
+              <form
+                className="border-t p-4 flex items-center gap-3"
+                onSubmit={e => {
+                  e.preventDefault();
+                  if (!sending && (messageInput || undefined)) {
+                    sendMessage({ content: messageInput });
+                  }
+                }}
+              >
                 <input
                   type="text"
                   className="flex-1 border rounded-full px-4 py-2 text-sm"
                   placeholder="Write a message..."
-                  disabled
+                  value={messageInput}
+                  onChange={e => setMessageInput(e.target.value)}
+                  disabled={sending}
                 />
-                <button className="px-4 py-2 rounded-full bg-[#157347] text-white text-sm font-semibold opacity-40 cursor-not-allowed">
+                <AttachmentUploader
+                  onUpload={file => sendMessage({ file })}
+                />
+                <button
+                  className="px-4 py-2 rounded-full bg-[#157347] text-white text-sm font-semibold"
+                  type="submit"
+                  disabled={sending || !messageInput}
+                >
                   Send
                 </button>
-              </div>
+              </form>
             </>
           ) : (
             <div className="flex-1 flex items-center justify-center text-gray-400">
@@ -202,7 +272,6 @@ const Messaging = () => {
             </div>
           )}
         </div>
-        {/* Right panel (ads, etc)—optional: not implemented */}
       </div>
     </div>
   );

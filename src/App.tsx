@@ -12,6 +12,7 @@ import Notifications from "./pages/Notifications";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Me from "./pages/Me";
+import { AuthProvider } from "@/hooks/useSupabaseAuth";
 
 const queryClient = new QueryClient();
 
@@ -20,20 +21,22 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/my-network" element={<MyNetwork />} />
-          <Route path="/messaging" element={<Messaging />} />
-          <Route path="/jobs" element={<Jobs />} />
-          <Route path="/notifications" element={<Notifications />} />
-          <Route path="/me" element={<Me />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/my-network" element={<MyNetwork />} />
+            <Route path="/messaging" element={<Messaging />} />
+            <Route path="/jobs" element={<Jobs />} />
+            <Route path="/notifications" element={<Notifications />} />
+            <Route path="/me" element={<Me />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
