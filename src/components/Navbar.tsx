@@ -67,6 +67,12 @@ const Navbar = ({
         >
           Notifications
         </a>
+        <a
+          href="/me"
+          className="flex flex-col items-center px-3 py-1 text-sm font-medium text-gray-700 hover:text-[#0A66C2] border-b-2 border-transparent hover:border-[#0A66C2] transition"
+        >
+          Me
+        </a>
       </div>
       {/* Profile/Me link and auth */}
       <div className="flex items-center gap-4">

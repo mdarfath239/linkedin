@@ -11,6 +11,7 @@ import Jobs from "./pages/Jobs";
 import Notifications from "./pages/Notifications";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
+import Me from "./pages/Me";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/messaging" element={<Messaging />} />
           <Route path="/jobs" element={<Jobs />} />
           <Route path="/notifications" element={<Notifications />} />
+          <Route path="/me" element={<Me />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
