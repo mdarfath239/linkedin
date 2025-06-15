@@ -203,11 +203,16 @@ const Feed = ({ searchQuery = "" }: { searchQuery?: string }) => {
     setPosts([sharedPost, ...posts]);
   };
 
-  // Filter by search query (simple case-insensitive match in content)
+  // Enhanced filter for search: match content, user name, or user title
   const filteredPosts = searchQuery
-    ? posts.filter((post) =>
-        post.content.toLowerCase().includes(searchQuery.toLowerCase())
-      )
+    ? posts.filter((post) => {
+        const q = searchQuery.toLowerCase();
+        return (
+          post.content.toLowerCase().includes(q) ||
+          (post.user.name && post.user.name.toLowerCase().includes(q)) ||
+          (post.user.title && post.user.title.toLowerCase().includes(q))
+        );
+      })
     : posts;
 
   return (
