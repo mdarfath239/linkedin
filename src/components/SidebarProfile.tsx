@@ -1,4 +1,3 @@
-
 import { Plus, ShieldCheck, Briefcase, Bookmark, Users, Newspaper, CalendarDays } from "lucide-react";
 
 const SidebarProfile = () => {
@@ -19,10 +18,6 @@ const SidebarProfile = () => {
               alt="Profile"
               className="w-20 h-20 rounded-full border-4 border-white shadow"
             />
-            {/* Blue plus icon */}
-            <span className="absolute right-0 bottom-1 bg-white rounded-full border border-gray-300 p-1 shadow-sm">
-              <Plus className="w-5 h-5 text-[#0A66C2]" />
-            </span>
           </div>
         </div>
       </div>
