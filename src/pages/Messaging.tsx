@@ -16,6 +16,7 @@ const CONVERSATIONS = [
     date: "Jun 14",
     unread: true,
     sponsored: true,
+    is_group: false,
     messages: [
       {
         id: 1,
@@ -33,6 +34,7 @@ const CONVERSATIONS = [
     date: "Jun 11",
     unread: false,
     sponsored: false,
+    is_group: false,
     messages: [
       {
         id: 1,
@@ -50,6 +52,7 @@ const CONVERSATIONS = [
     date: "Jun 9",
     unread: false,
     sponsored: false,
+    is_group: false,
     messages: [
       {
         id: 1,
@@ -67,6 +70,7 @@ const CONVERSATIONS = [
     date: "Jun 1",
     unread: false,
     sponsored: false,
+    is_group: false,
     messages: [
       {
         id: 1,
@@ -84,6 +88,7 @@ const CONVERSATIONS = [
     date: "May 31",
     unread: false,
     sponsored: false,
+    is_group: false,
     messages: [
       {
         id: 1,
