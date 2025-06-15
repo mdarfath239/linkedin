@@ -1,5 +1,7 @@
+
 import React, { useState } from "react";
-import { MagnifyingGlass, Bell, MessageSquare } from "lucide-react";
+import { Bell, MessageSquare } from "lucide-react";
+import { MagnifyingGlass as MagnifyingGlassIcon } from "lucide-react/icons/magnifying-glass";
 
 const Navbar = ({
   onSearch,
@@ -24,7 +26,7 @@ const Navbar = ({
         </div>
         <div className="relative">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <MagnifyingGlass className="w-5 h-5 text-gray-400" />
+            <MagnifyingGlassIcon className="w-5 h-5 text-gray-400" />
           </div>
           <input
             type="search"

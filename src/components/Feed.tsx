@@ -13,7 +13,11 @@ const INITIAL_USER = {
 const INITIAL_POSTS = [
   {
     id: 1,
-    user: INITIAL_USER,
+    user: {
+      name: "Jane Smith",
+      avatar: "https://randomuser.me/api/portraits/women/21.jpg",
+      title: "Product Designer at EditNow",
+    },
     time: "2h",
     content: "Excited to share our product’s latest update—introducing dark mode for all users! ✨",
     image: "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=600&q=80",
@@ -40,6 +44,7 @@ const INITIAL_POSTS = [
         createdAt: "50m",
       },
     ],
+    // video omitted
   },
   {
     id: 2,
@@ -51,7 +56,7 @@ const INITIAL_POSTS = [
     time: "5h",
     content:
       "We’re hiring React engineers! DM if interested or refer a friend. #hiring #reactjs",
-    image: "",
+    image: undefined,
     likes: 3,
     comments: 1,
     reactions: { like: 3 },
@@ -82,6 +87,7 @@ const INITIAL_POSTS = [
     comments: 0,
     reactions: { like: 2 },
     allComments: [],
+    // image omitted
   },
   {
     id: 4,
@@ -97,6 +103,7 @@ const INITIAL_POSTS = [
     comments: 0,
     reactions: { like: 1 },
     allComments: [],
+    // video omitted
   },
   // Video post (no image)
   {
@@ -113,6 +120,7 @@ const INITIAL_POSTS = [
     comments: 0,
     reactions: { like: 0 },
     allComments: [],
+    // image omitted
   },
 ];
 
