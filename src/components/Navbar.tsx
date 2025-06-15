@@ -56,7 +56,7 @@ const Navbar = ({
           Jobs
         </a>
         <a
-          href="/"
+          href="/messaging"
           className="flex flex-col items-center px-3 py-1 text-sm font-medium text-gray-700 hover:text-[#0A66C2] border-b-2 border-transparent hover:border-[#0A66C2] transition"
         >
           Messaging
