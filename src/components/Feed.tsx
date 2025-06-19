@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import FeedPostCard from "./FeedPostCard";
 import PostCreationInterface from "./PostCreationInterface";
@@ -115,6 +116,60 @@ const INITIAL_POSTS = [
     reactions: { like: 0 },
     allComments: [],
   },
+  {
+    id: 6,
+    user: {
+      name: "Sarah Johnson",
+      avatar: "https://randomuser.me/api/portraits/women/45.jpg",
+      title: "UX Researcher at TechCorp",
+    },
+    time: "3h",
+    content: "Just finished a fascinating user research study on mobile app navigation patterns. The insights are mind-blowing! 📱✨",
+    image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&q=80",
+    likes: 8,
+    comments: 3,
+    reactions: { like: 8 },
+    allComments: [
+      {
+        id: 4,
+        user: {
+          name: "Mike Chen",
+          avatar: "https://randomuser.me/api/portraits/men/55.jpg",
+        },
+        text: "Would love to see the findings!",
+        createdAt: "2h",
+      },
+    ],
+  },
+  {
+    id: 7,
+    user: {
+      name: "David Kim",
+      avatar: "https://randomuser.me/api/portraits/men/67.jpg",
+      title: "Frontend Engineer",
+    },
+    time: "4h",
+    content: "Successfully migrated our entire codebase to TypeScript! The type safety is incredible and the developer experience is so much better. 💻",
+    likes: 12,
+    comments: 5,
+    reactions: { like: 12 },
+    allComments: [],
+  },
+  {
+    id: 8,
+    user: {
+      name: "Emma Wilson",
+      avatar: "https://randomuser.me/api/portraits/women/68.jpg",
+      title: "Product Manager",
+    },
+    time: "6h",
+    content: "Celebrating our team's achievement! We just hit 1 million active users 🎉\n\nThank you to everyone who believed in our vision.",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80",
+    likes: 25,
+    comments: 8,
+    reactions: { like: 25 },
+    allComments: [],
+  },
 ];
 
 const CURRENT_USER = {
@@ -178,6 +233,15 @@ const Feed = ({ searchQuery = "" }: { searchQuery?: string }) => {
       };
     }
     setPosts([newPost, ...posts]);
+  };
+
+  const handleDeletePost = (id: number) => {
+    setPosts((prev) => prev.filter((post) => post.id !== id));
+    setLikedPosts((prev) => {
+      const newLikedPosts = { ...prev };
+      delete newLikedPosts[id];
+      return newLikedPosts;
+    });
   };
 
   const handleReact = (id: number, type: string) => {
@@ -260,7 +324,9 @@ const Feed = ({ searchQuery = "" }: { searchQuery?: string }) => {
           }}
           onComment={(text) => handleComment(post.id, text)}
           onShare={() => handleShare(post.id)}
+          onDelete={() => handleDeletePost(post.id)}
           isLiked={!!likedPosts[post.id]}
+          canDelete={post.user.name === CURRENT_USER.name}
         />
       ))}
       {!filteredPosts.length && (
