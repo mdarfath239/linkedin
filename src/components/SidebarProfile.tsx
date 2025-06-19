@@ -1,3 +1,4 @@
+
 import { Plus, ShieldCheck, Briefcase, Bookmark, Users, Newspaper, CalendarDays } from "lucide-react";
 
 const SidebarProfile = () => {
@@ -5,13 +6,8 @@ const SidebarProfile = () => {
     <div className="bg-white shadow rounded-xl border border-gray-200 overflow-hidden flex flex-col py-0 px-0 mb-6">
       {/* Banner */}
       <div className="h-[56px] bg-gray-200 relative">
-        <img
-          src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=80"
-          alt="Banner"
-          className="object-cover w-full h-full"
-        />
         {/* Avatar */}
-        <div className="absolute left-1/2 -bottom-9 transform -translate-x-1/2">
+        <div className="absolute left-1/2 top-4 transform -translate-x-1/2">
           <div className="relative">
             <img
               src="https://randomuser.me/api/portraits/men/11.jpg"
