@@ -1,7 +1,6 @@
-
 import React, { useState } from "react";
 import FeedPostCard from "./FeedPostCard";
-import CreatePostModal from "./CreatePostModal";
+import PostCreationInterface from "./PostCreationInterface";
 import { Comment } from "./CommentSection";
 
 const INITIAL_USER = {
@@ -10,7 +9,6 @@ const INITIAL_USER = {
   title: "Product Designer at EditNow",
 };
 
-// Example initial posts (fixed: only image OR video, never both)
 const INITIAL_POSTS = [
   {
     id: 1,
@@ -20,7 +18,7 @@ const INITIAL_POSTS = [
       title: "Product Designer at EditNow",
     },
     time: "2h",
-    content: "Excited to share our product’s latest update—introducing dark mode for all users! ✨",
+    content: "Excited to share our product's latest update—introducing dark mode for all users! ✨",
     image: "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=600&q=80",
     likes: 6,
     comments: 2,
@@ -45,7 +43,6 @@ const INITIAL_POSTS = [
         createdAt: "50m",
       },
     ],
-    // video omitted
   },
   {
     id: 2,
@@ -56,7 +53,7 @@ const INITIAL_POSTS = [
     },
     time: "5h",
     content:
-      "We’re hiring React engineers! DM if interested or refer a friend. #hiring #reactjs",
+      "We're hiring React engineers! DM if interested or refer a friend. #hiring #reactjs",
     image: undefined,
     likes: 3,
     comments: 1,
@@ -73,7 +70,6 @@ const INITIAL_POSTS = [
       },
     ],
   },
-  // Video post (no image)
   {
     id: 3,
     user: {
@@ -88,7 +84,6 @@ const INITIAL_POSTS = [
     comments: 0,
     reactions: { like: 2 },
     allComments: [],
-    // image omitted
   },
   {
     id: 4,
@@ -104,9 +99,7 @@ const INITIAL_POSTS = [
     comments: 0,
     reactions: { like: 1 },
     allComments: [],
-    // video omitted
   },
-  // Video post (no image)
   {
     id: 5,
     user: {
@@ -121,7 +114,6 @@ const INITIAL_POSTS = [
     comments: 0,
     reactions: { like: 0 },
     allComments: [],
-    // image omitted
   },
 ];
 
@@ -151,12 +143,12 @@ const Feed = ({ searchQuery = "" }: { searchQuery?: string }) => {
         user: CURRENT_USER,
         time: "now",
         content,
-        image,             // required
+        image,
         likes: 0,
         comments: 0,
         reactions: { like: 0 },
         allComments: [],
-        video: undefined,  // explicitly set as undefined for type
+        video: undefined,
       };
     } else if (video && !image) {
       newPost = {
@@ -164,15 +156,14 @@ const Feed = ({ searchQuery = "" }: { searchQuery?: string }) => {
         user: CURRENT_USER,
         time: "now",
         content,
-        video,             // required
+        video,
         likes: 0,
         comments: 0,
         reactions: { like: 0 },
         allComments: [],
-        image: undefined,  // explicitly set as undefined for type
+        image: undefined,
       };
     } else {
-      // No media post (text only)
       newPost = {
         id: Date.now(),
         user: CURRENT_USER,
@@ -242,7 +233,6 @@ const Feed = ({ searchQuery = "" }: { searchQuery?: string }) => {
     setPosts([sharedPost, ...posts]);
   };
 
-  // Enhanced filter for search: match content, user name, or user title
   const filteredPosts = searchQuery
     ? posts.filter((post) => {
         const q = searchQuery.toLowerCase();
@@ -256,14 +246,10 @@ const Feed = ({ searchQuery = "" }: { searchQuery?: string }) => {
 
   return (
     <div className="w-full space-y-4">
-      <div className="bg-white rounded-lg shadow border border-gray-200 p-5 flex gap-3 items-center">
-        <img
-          src={CURRENT_USER.avatar}
-          alt="Profile"
-          className="w-12 h-12 rounded-full object-cover"
-        />
-        <CreatePostModal onCreate={handleCreatePost} />
-      </div>
+      <PostCreationInterface
+        currentUser={CURRENT_USER}
+        onCreate={handleCreatePost}
+      />
       {filteredPosts.map((post) => (
         <FeedPostCard
           key={post.id}

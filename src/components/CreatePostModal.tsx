@@ -43,7 +43,9 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ onCreate }) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="bg-[#0A66C2]" variant="default">Start a Post</Button>
+        <button className="flex-1 bg-transparent border border-gray-300 rounded-full px-4 py-3 text-left text-gray-500 hover:bg-gray-50 transition-colors">
+          Start a post
+        </button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
