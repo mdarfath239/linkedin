@@ -11,7 +11,7 @@ const CONVERSATIONS = [
   {
     id: 1,
     name: "Innomatics Research Labs",
-    avatar: "/lovable-uploads/b5e081a3-1e27-4950-b871-6268ca5548f2.png", // as in screenshot
+    avatar: "/lovable-uploads/b5e081a3-1e27-4950-b871-6268ca5548f2.png",
     snippet: "Sponsored  Learn Data Science Now ...",
     date: "Jun 14",
     unread: true,
@@ -21,8 +21,23 @@ const CONVERSATIONS = [
       {
         id: 1,
         sender: "Innomatics Research Labs",
-        text: "Hi Mohammed, We came across your profile ...",
+        text: "Hi Mohammed, We came across your profile and we're impressed with your background in technology. We'd like to invite you to explore our Data Science program.",
         time: "9:05 AM",
+        sender_id: "innomatics_id",
+      },
+      {
+        id: 2,
+        sender: "You",
+        text: "Thank you for reaching out! I'm interested in learning more about the program.",
+        time: "9:15 AM",
+        sender_id: "user_id",
+      },
+      {
+        id: 3,
+        sender: "Innomatics Research Labs",
+        text: "Great! Our comprehensive Data Science course covers Python, Machine Learning, AI, and real-world projects. Would you like to schedule a call to discuss further?",
+        time: "9:20 AM",
+        sender_id: "innomatics_id",
       },
     ],
   },
@@ -39,8 +54,23 @@ const CONVERSATIONS = [
       {
         id: 1,
         sender: "LinkedIn",
-        text: "Hi there, Mohammed! We’ve recently...",
+        text: "Hi there, Mohammed! We've recently launched LinkedIn Premium features that could help boost your career. Get 50% off your first month!",
         time: "10:15 AM",
+        sender_id: "linkedin_id",
+      },
+      {
+        id: 2,
+        sender: "You",
+        text: "Thanks for the offer. What specific features are included in Premium?",
+        time: "2:30 PM",
+        sender_id: "user_id",
+      },
+      {
+        id: 3,
+        sender: "LinkedIn",
+        text: "Premium includes InMail credits, advanced search filters, salary insights, online courses, and priority customer support. Perfect for job seekers and professionals!",
+        time: "2:45 PM",
+        sender_id: "linkedin_id",
       },
     ],
   },
@@ -48,7 +78,7 @@ const CONVERSATIONS = [
     id: 3,
     name: "Pallavi M Shigli",
     avatar: "https://randomuser.me/api/portraits/women/44.jpg",
-    snippet: "Pallavi M: Thanks",
+    snippet: "Pallavi M: Thanks for connecting!",
     date: "Jun 9",
     unread: false,
     sponsored: false,
@@ -57,8 +87,37 @@ const CONVERSATIONS = [
       {
         id: 1,
         sender: "Pallavi M Shigli",
+        text: "Hi Mohammed! Thank you for connecting with me on LinkedIn. I saw your profile and I'm impressed with your technical skills.",
+        time: "Yesterday",
+        sender_id: "pallavi_id",
+      },
+      {
+        id: 2,
+        sender: "You",
+        text: "Hi Pallavi! Thanks for accepting my connection request. I noticed you work in software development too.",
+        time: "Yesterday",
+        sender_id: "user_id",
+      },
+      {
+        id: 3,
+        sender: "Pallavi M Shigli",
+        text: "Yes, I've been working as a Full Stack Developer for 3 years now. Would love to collaborate on some projects sometime!",
+        time: "Yesterday",
+        sender_id: "pallavi_id",
+      },
+      {
+        id: 4,
+        sender: "You",
+        text: "That sounds great! I'm always open to new opportunities and collaborations.",
+        time: "Yesterday",
+        sender_id: "user_id",
+      },
+      {
+        id: 5,
+        sender: "Pallavi M Shigli",
         text: "Thanks!",
         time: "Yesterday",
+        sender_id: "pallavi_id",
       },
     ],
   },
@@ -75,8 +134,30 @@ const CONVERSATIONS = [
       {
         id: 1,
         sender: "Sugandha Chauhan",
-        text: "Great profile Mohammed, fancy leading our...",
+        text: "Great profile Mohammed, fancy leading our next big project? We're looking for someone with your expertise in React and Node.js.",
         time: "2:15 PM",
+        sender_id: "sugandha_id",
+      },
+      {
+        id: 2,
+        sender: "You",
+        text: "Hi Sugandha! Thank you for reaching out. I'd love to hear more about the project and the role.",
+        time: "4:30 PM",
+        sender_id: "user_id",
+      },
+      {
+        id: 3,
+        sender: "Sugandha Chauhan",
+        text: "We're building a cutting-edge e-commerce platform with microservices architecture. The tech stack includes React, Node.js, MongoDB, and AWS. Are you available for a quick call this week?",
+        time: "4:45 PM",
+        sender_id: "sugandha_id",
+      },
+      {
+        id: 4,
+        sender: "You",
+        text: "That sounds very interesting! I'm available for a call on Thursday or Friday afternoon. What time works best for you?",
+        time: "5:00 PM",
+        sender_id: "user_id",
       },
     ],
   },
@@ -84,7 +165,7 @@ const CONVERSATIONS = [
     id: 5,
     name: "Muhsina v",
     avatar: "https://randomuser.me/api/portraits/women/65.jpg",
-    snippet: "You: I'm from Bangalore",
+    snippet: "You: I'm from Bangalore too!",
     date: "May 31",
     unread: false,
     sponsored: false,
@@ -93,12 +174,33 @@ const CONVERSATIONS = [
       {
         id: 1,
         sender: "Muhsina v",
-        text: "I'm from Bangalore",
+        text: "Hey Mohammed! I noticed you're also from Bangalore. Small world! How long have you been in the tech industry?",
         time: "Yesterday",
+        sender_id: "muhsina_id",
+      },
+      {
+        id: 2,
+        sender: "You",
+        text: "Hi Muhsina! Yes, I'm from Bangalore too! I've been in tech for about 4 years now. What about you?",
+        time: "Yesterday",
+        sender_id: "user_id",
+      },
+      {
+        id: 3,
+        sender: "Muhsina v",
+        text: "That's awesome! I've been working as a UI/UX designer for 2 years. Maybe we should meet up for coffee sometime and discuss the tech scene in Bangalore!",
+        time: "Yesterday",
+        sender_id: "muhsina_id",
+      },
+      {
+        id: 4,
+        sender: "You",
+        text: "I'm from Bangalore too! That sounds like a great idea. There are so many great cafes in Koramangala and Indiranagar.",
+        time: "Yesterday",
+        sender_id: "user_id",
       },
     ],
   },
-  // ...add similar profile images for more if needed...
 ];
 
 const TABS = [
@@ -120,46 +222,29 @@ const Messaging = () => {
   const conversations = CONVERSATIONS;
   const loadingConvos = false;
 
-  // Messages in the selected conversation
-  const { messages, loading: loadingMsgs, refetch } = useRealtimeMessages(selected?.id || null);
+  // Messages in the selected conversation - use hardcoded messages from CONVERSATIONS
+  const messages = selected ? selected.messages : [];
+  const loadingMsgs = false;
   const [messageInput, setMessageInput] = useState("");
   const [sending, setSending] = useState(false);
 
-  // Send text/attachment
+  // Send text/attachment - for demo, just add to local state
   async function sendMessage({ content, file }: { content?: string; file?: File }) {
-    if (!selected || !user || (!content && !file)) return;
+    if (!selected || (!content && !file)) return;
     setSending(true);
 
-    let attachment_url = null;
-    let attachment_type = null;
+    // For demo, just add the message to the conversation
+    const newMessage = {
+      id: Date.now(),
+      sender: "You",
+      text: content || "Attachment sent",
+      time: new Date().toLocaleTimeString(),
+      sender_id: "user_id",
+    };
 
-    if (file) {
-      // Upload to Supabase Storage (create 'chat-files' bucket if not exists!)
-      const fileName = `${selected.id}/${Date.now()}_${file.name}`;
-      const { data: uploadData, error: uploadError } = await supabase.storage
-        .from("chat-files")
-        .upload(fileName, file);
-
-      if (uploadError) {
-        alert("Failed to upload attachment");
-        setSending(false);
-        return;
-      }
-      attachment_url = uploadData?.path;
-      attachment_type = file.type;
-    }
-
-    await supabase.from("messages").insert({
-      conversation_id: selected.id,
-      sender_id: user.id,
-      content: content ?? "",
-      attachment_url,
-      attachment_type
-    });
-
+    selected.messages.push(newMessage);
     setMessageInput("");
     setSending(false);
-    setTimeout(refetch, 200); // Refetch in case realtime is delayed
   }
 
   if (loading) return <div className="p-10 text-center">Loading auth...</div>;
@@ -250,10 +335,15 @@ const Messaging = () => {
           {selected ? (
             <>
               <div className="border-b flex items-center gap-3 px-6 py-3 bg-white">
-                <div className="w-10 h-10 rounded-full bg-blue-200 flex justify-center items-center">{selected.is_group ? "👥" : "💬"}</div>
+                <img
+                  src={selected.avatar}
+                  alt={selected.name}
+                  className="w-10 h-10 rounded-full object-cover border"
+                  onError={e => { (e.target as HTMLImageElement).src = "/placeholder.svg"; }}
+                />
                 <div>
                   <div className="font-bold">{selected.name || (selected.is_group ? "Group chat" : "Chat")}</div>
-                  {/* ...add participants or typing indicators later... */}
+                  <div className="text-sm text-gray-500">Active now</div>
                 </div>
               </div>
               <div className="flex-1 p-6 overflow-y-auto flex flex-col gap-4">
@@ -263,28 +353,15 @@ const Messaging = () => {
                   messages.map((m) => (
                     <div
                       key={m.id}
-                      className={`rounded-lg px-4 py-2 max-w-md ${m.sender_id === user.id ? "ml-auto bg-blue-100" : "bg-[#f3f6f8]"}`}
+                      className={`rounded-lg px-4 py-2 max-w-md ${m.sender_id === "user_id" ? "ml-auto bg-blue-100" : "bg-[#f3f6f8]"}`}
                     >
                       <div className="text-sm font-semibold mb-1">
-                        {m.sender_id === user.id ? "You" : m.sender_id}
-                        <span className="ml-2 text-xs text-gray-400">{new Date(m.created_at).toLocaleTimeString()}</span>
+                        {m.sender_id === "user_id" ? "You" : m.sender}
+                        <span className="ml-2 text-xs text-gray-400">{m.time}</span>
                       </div>
                       <div className="text-sm text-gray-800 break-words whitespace-pre-wrap">
-                        {m.content}
+                        {m.text}
                       </div>
-                      {m.attachment_url && (
-                        <div className="mt-2">
-                          <a
-                            href={supabase.storage.from("chat-files").getPublicUrl(m.attachment_url).data.publicUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-600 underline text-xs"
-                          >
-                            Attachment
-                          </a>
-                        </div>
-                      )}
-                      {/* ...read receipt UI can be added here next... */}
                     </div>
                   ))
                 )}
@@ -293,7 +370,7 @@ const Messaging = () => {
                 className="border-t p-4 flex items-center gap-3"
                 onSubmit={e => {
                   e.preventDefault();
-                  if (!sending && (messageInput || undefined)) {
+                  if (!sending && messageInput.trim()) {
                     sendMessage({ content: messageInput });
                   }
                 }}
@@ -310,9 +387,9 @@ const Messaging = () => {
                   onUpload={file => sendMessage({ file })}
                 />
                 <button
-                  className="px-4 py-2 rounded-full bg-[#157347] text-white text-sm font-semibold"
+                  className="px-4 py-2 rounded-full bg-[#157347] text-white text-sm font-semibold disabled:opacity-50"
                   type="submit"
-                  disabled={sending || !messageInput}
+                  disabled={sending || !messageInput.trim()}
                 >
                   Send
                 </button>
