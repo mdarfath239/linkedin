@@ -21,12 +21,15 @@ const Navbar = () => {
     <nav className="bg-white flex items-center justify-between px-4 py-2 border-b shadow-sm z-30 relative">
       {/* Left | Logo & Search */}
       <div className="flex items-center gap-6">
-        {/* Logo */}
+        {/* LinkedIn Logo */}
         <div
-          className="flex items-center text-2xl font-black text-[#1573cf] cursor-pointer"
+          className="flex items-center gap-1 cursor-pointer"
           onClick={() => navigate("/")}
         >
-          Link<span className="font-black text-[#0A66C2]">Edit</span>
+          <div className="w-8 h-8 bg-[#0A66C2] rounded flex items-center justify-center">
+            <span className="text-white font-bold text-lg">in</span>
+          </div>
+          <span className="text-2xl font-bold text-[#0A66C2] ml-1">LinkedIn</span>
         </div>
         {/* Search Bar */}
         <div className="relative w-56">
