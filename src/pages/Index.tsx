@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import SidebarProfile from "@/components/SidebarProfile";
@@ -10,9 +11,13 @@ const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [showProfile, setShowProfile] = useState(false);
 
+  const handleSearchChange = (query: string) => {
+    setSearchQuery(query);
+  };
+
   return (
     <div className="min-h-screen w-full bg-background flex flex-col">
-      <Navbar />
+      <Navbar onSearchChange={handleSearchChange} searchQuery={searchQuery} />
       <main className="flex-1 w-full flex flex-row justify-center gap-8 px-8 py-8 bg-[#F3F6F8]">
         {/* Left sidebar - profile preview */}
         <aside className="hidden xl:block w-[320px] flex-shrink-0">

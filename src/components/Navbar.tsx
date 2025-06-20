@@ -12,10 +12,21 @@ const navLinks = [
   { to: "/me", label: "Me" },
 ];
 
-const Navbar = () => {
-  const [search, setSearch] = useState("");
+interface NavbarProps {
+  onSearchChange?: (query: string) => void;
+  searchQuery?: string;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ onSearchChange, searchQuery = "" }) => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (onSearchChange) {
+      onSearchChange(value);
+    }
+  };
 
   return (
     <nav className="bg-white flex items-center justify-between px-4 py-2 border-b shadow-sm z-30 relative">
@@ -40,8 +51,8 @@ const Navbar = () => {
             type="text"
             placeholder="Search..."
             className="pl-10 pr-4 py-1.5 text-base bg-white border rounded-full focus:outline-none focus:ring-2 focus:ring-[#0A66C2] w-full"
-            value={search}
-            onChange={e => setSearch(e.target.value)}
+            value={searchQuery}
+            onChange={handleSearchChange}
             style={{fontWeight: 400, color: "#555"}}
           />
         </div>
