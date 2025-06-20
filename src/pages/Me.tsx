@@ -88,7 +88,7 @@ const Me: React.FC = () => {
                   <span className="text-[#0A66C2] font-semibold text-sm">746 followers</span>
                   <span className="text-[#0A66C2] text-sm">• 500+ connections</span>
                   <div className="flex items-center gap-1 pl-2">
-                    <img src={universityLogo} alt="University" className="w-6 h-6 sm:w-7 sm:h-7 rounded-full border" />
+                    <img src={"/VTU-Logo.png"} alt="University" className="w-6 h-6 sm:w-7 sm:h-7 rounded-full border" />
                     <span className="text-xs text-[#44A33A] font-semibold whitespace-nowrap">Visvesvaraya Technological University</span>
                   </div>
                 </div>
@@ -125,7 +125,7 @@ const Me: React.FC = () => {
           <div className="bg-white rounded-xl border shadow-sm p-4 text-center">
             <div className="text-xs text-gray-500 mb-2">Ad</div>
             <div className="flex flex-col items-center gap-1">
-              <img src="/placeholder.svg" className="w-16 h-6 object-contain mx-auto" alt="Premium" />
+              <img src="/try-premium.png" className="w-16 h-6 object-contain mx-auto" alt="Premium" />
               <span className="text-sm font-medium text-gray-700">See who’s viewed your profile in the last 365 days</span>
               <Button variant="outline" className="text-[#0A66C2] border-[#0A66C2] mt-2 hover:bg-[#eaf2fa]">Try for free</Button>
             </div>

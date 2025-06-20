@@ -34,7 +34,7 @@ const notifications = [
     time: "1d ago",
     user: {
       name: "HCLTech",
-      avatar: "https://upload.wikimedia.org/wikipedia/commons/5/5e/HCL_Technologies_Logo.svg",
+      avatar: "/hcl-logo.png",
       headline: "Company"
     },
     type: "job"
@@ -46,7 +46,7 @@ const notifications = [
     time: "2d ago",
     user: {
       name: "LinkedClone",
-      avatar: "/placeholder.svg",
+      avatar: "/linkedit.png",
       headline: "Platform Notification"
     },
     type: "event"
