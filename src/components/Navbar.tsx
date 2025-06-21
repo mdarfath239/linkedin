@@ -1,15 +1,14 @@
 
 import React, { useState } from "react";
-import { Search } from "lucide-react";
+import { Search, Home, Users, Briefcase, MessageSquare, Bell, Grid3x3, Award } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const navLinks = [
-  { to: "/", label: "Home" },
-  { to: "/my-network", label: "My Network" },
-  { to: "/jobs", label: "Jobs" },
-  { to: "/messaging", label: "Messaging" },
-  { to: "/notifications", label: "Notifications" },
-  { to: "/me", label: "Me" },
+  { to: "/", label: "Home", icon: Home },
+  { to: "/my-network", label: "My Network", icon: Users },
+  { to: "/jobs", label: "Jobs", icon: Briefcase },
+  { to: "/messaging", label: "Messaging", icon: MessageSquare },
+  { to: "/notifications", label: "Notifications", icon: Bell },
 ];
 
 interface NavbarProps {
@@ -57,23 +56,57 @@ const Navbar: React.FC<NavbarProps> = ({ onSearchChange, searchQuery = "" }) => 
           />
         </div>
       </div>
-      {/* Center | Navigation Links */}
+      
+      {/* Center | Navigation Links with Icons */}
       <div className="flex items-center gap-8">
-        {navLinks.map((link) => (
-          <button
-            key={link.to}
-            onClick={() => navigate(link.to)}
-            className={`
-              bg-transparent outline-none border-0 text-base font-medium px-1 transition
-              ${location.pathname === link.to ? "text-[#0A66C2] font-semibold" : "text-gray-800"}
-            `}
-            style={{ minWidth: 0 }}
-          >
-            {link.label}
-          </button>
-        ))}
+        {navLinks.map((link) => {
+          const IconComponent = link.icon;
+          return (
+            <button
+              key={link.to}
+              onClick={() => navigate(link.to)}
+              className={`
+                bg-transparent outline-none border-0 flex flex-col items-center gap-1 px-2 py-1 transition
+                ${location.pathname === link.to ? "text-[#0A66C2]" : "text-gray-600 hover:text-[#0A66C2]"}
+              `}
+            >
+              <IconComponent size={24} />
+              <span className="text-xs font-medium">{link.label}</span>
+            </button>
+          );
+        })}
+        
+        {/* Me section with profile */}
+        <button
+          onClick={() => navigate("/me")}
+          className={`
+            bg-transparent outline-none border-0 flex flex-col items-center gap-1 px-2 py-1 transition
+            ${location.pathname === "/me" ? "text-[#0A66C2]" : "text-gray-600 hover:text-[#0A66C2]"}
+          `}
+        >
+          <div className="w-6 h-6 rounded-full bg-[#E5EAF0] flex items-center justify-center overflow-hidden border border-gray-200">
+            <svg width={18} height={18} viewBox="0 0 32 32" fill="none">
+              <circle cx="16" cy="12" r="7" fill="#B0B8C1" opacity="0.35" />
+              <ellipse cx="16" cy="25" rx="11" ry="5" fill="#B0B8C1" opacity="0.35" />
+            </svg>
+          </div>
+          <span className="text-xs font-medium">Me</span>
+        </button>
+        
+        {/* For Business */}
+        <button className="bg-transparent outline-none border-0 flex flex-col items-center gap-1 px-2 py-1 transition text-gray-600 hover:text-[#0A66C2]">
+          <Grid3x3 size={24} />
+          <span className="text-xs font-medium">For Business</span>
+        </button>
+        
+        {/* Try Premium */}
+        <button className="bg-transparent outline-none border-0 flex flex-col items-center gap-1 px-2 py-1 transition text-amber-600 hover:text-amber-700">
+          <Award size={24} />
+          <span className="text-xs font-medium">Try Premium for ₹0</span>
+        </button>
       </div>
-      {/* Right | Auth and Profile actions */}
+      
+      {/* Right | Auth buttons (hidden when user is logged in) */}
       <div className="flex items-center gap-3">
         <button
           className="text-[#0A66C2] border border-[#0A66C2] rounded-full px-5 py-1.5 font-semibold text-base bg-white hover:bg-[#eaf2fa] transition"
@@ -87,16 +120,6 @@ const Navbar: React.FC<NavbarProps> = ({ onSearchChange, searchQuery = "" }) => 
         >
           Join now
         </button>
-        <div className="flex items-center gap-1 px-3 py-1.5 bg-gray-100 rounded-full cursor-pointer hover:bg-gray-200 transition select-none ml-1">
-          <div className="w-7 h-7 rounded-full bg-[#E5EAF0] flex items-center justify-center overflow-hidden border border-gray-200">
-            {/* Empty avatar SVG */}
-            <svg width={22} height={22} viewBox="0 0 32 32" fill="none">
-              <circle cx="16" cy="12" r="7" fill="#B0B8C1" opacity="0.35" />
-              <ellipse cx="16" cy="25" rx="11" ry="5" fill="#B0B8C1" opacity="0.35" />
-            </svg>
-          </div>
-          <span className="ml-1 text-base text-black font-medium">Me</span>
-        </div>
       </div>
     </nav>
   );

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import Navbar from "@/components/Navbar";
-import { Plus, Pencil } from "lucide-react";
+import { Plus, Pencil, Home, Users, Briefcase, MessageSquare, Bell } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 
 // Placeholder SVG (no real face) for avatar
 const AvatarPlaceholder = () => (
@@ -21,9 +22,40 @@ const AvatarPlaceholder = () => (
 );
 
 const profileBG = "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=900&q=80";
-const universityLogo = "https://upload.wikimedia.org/wikipedia/en/1/1c/Visvesvaraya_Technological_University_logo.png";
 
 const Me: React.FC = () => {
+  const [profileImage, setProfileImage] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const { toast } = useToast();
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) { // 5MB limit
+        toast({
+          title: "File too large",
+          description: "Please select an image smaller than 5MB",
+          variant: "destructive",
+        });
+        return;
+      }
+      
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setProfileImage(e.target?.result as string);
+        toast({
+          title: "Profile image updated",
+          description: "Your profile image has been successfully updated",
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const triggerFileUpload = () => {
+    fileInputRef.current?.click();
+  };
+
   return (
     <div className="min-h-screen bg-[#f3f6f8] flex flex-col items-center px-1 sm:px-2 py-4 sm:py-8">
       <Navbar />
@@ -43,12 +75,30 @@ const Me: React.FC = () => {
             <div className="absolute left-1/2 -translate-x-1/2" style={{ top: "78px" }}>
               <div className="relative group w-24 h-24 sm:w-32 sm:h-32">
                 <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full border-4 border-white shadow-lg bg-[#E5EAF0] flex items-center justify-center overflow-hidden">
-                  <AvatarPlaceholder />
+                  {profileImage ? (
+                    <img 
+                      src={profileImage} 
+                      alt="Profile" 
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <AvatarPlaceholder />
+                  )}
                 </div>
                 {/* Upload/Edit button */}
-                <button className="absolute bottom-2 right-2 bg-white border-2 border-blue-500 text-blue-500 rounded-full p-1.5 hover:bg-blue-50 transition">
+                <button 
+                  onClick={triggerFileUpload}
+                  className="absolute bottom-2 right-2 bg-white border-2 border-blue-500 text-blue-500 rounded-full p-1.5 hover:bg-blue-50 transition"
+                >
                   <Plus className="text-[#0A66C2]" size={18} />
                 </button>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  className="hidden"
+                />
               </div>
             </div>
             {/* Main content */}
@@ -126,7 +176,7 @@ const Me: React.FC = () => {
             <div className="text-xs text-gray-500 mb-2">Ad</div>
             <div className="flex flex-col items-center gap-1">
               <img src="/try-premium.png" className="w-16 h-6 object-contain mx-auto" alt="Premium" />
-              <span className="text-sm font-medium text-gray-700">See who’s viewed your profile in the last 365 days</span>
+              <span className="text-sm font-medium text-gray-700">See who's viewed your profile in the last 365 days</span>
               <Button variant="outline" className="text-[#0A66C2] border-[#0A66C2] mt-2 hover:bg-[#eaf2fa]">Try for free</Button>
             </div>
           </div>
