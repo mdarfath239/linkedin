@@ -1,7 +1,7 @@
-
 import React, { useState } from "react";
-import { Search, Home, Users, Briefcase, MessageSquare, Bell, Grid3x3, Award } from "lucide-react";
+import { Search, Home, Users, Briefcase, MessageSquare, Bell, Award } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
+import ForBusinessDropdown from "./ForBusinessDropdown";
 
 const navLinks = [
   { to: "/", label: "Home", icon: Home },
@@ -93,11 +93,8 @@ const Navbar: React.FC<NavbarProps> = ({ onSearchChange, searchQuery = "" }) => 
           <span className="text-xs font-medium">Me</span>
         </button>
         
-        {/* For Business */}
-        <button className="bg-transparent outline-none border-0 flex flex-col items-center gap-1 px-2 py-1 transition text-gray-600 hover:text-[#0A66C2]">
-          <Grid3x3 size={24} />
-          <span className="text-xs font-medium">For Business</span>
-        </button>
+        {/* For Business with Dropdown */}
+        <ForBusinessDropdown />
         
         {/* Try Premium */}
         <button className="bg-transparent outline-none border-0 flex flex-col items-center gap-1 px-2 py-1 transition text-amber-600 hover:text-amber-700">
