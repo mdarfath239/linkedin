@@ -82,7 +82,7 @@ const PostCreationInterface: React.FC<PostCreationInterfaceProps> = ({
       {/* Top section with avatar and input */}
       <div className="flex gap-3 items-center mb-3">
         <img
-          src={currentUser.avatar}
+          src={"/profile.jpg"}
           alt="Profile"
           className="w-12 h-12 rounded-full object-cover flex-shrink-0"
         />
