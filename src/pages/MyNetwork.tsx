@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import { Users } from "lucide-react";
@@ -36,6 +37,54 @@ const suggestedPeople = [
     img: "https://randomuser.me/api/portraits/men/44.jpg",
     mutual: "abdul sathar and 2 other mutual connections"
   },
+  {
+    name: "Priya Sharma",
+    role: "UI/UX Designer @ Google | Figma Expert",
+    img: "https://randomuser.me/api/portraits/women/25.jpg",
+    mutual: "Arjun and 8 other mutual connections"
+  },
+  {
+    name: "Vikram Singh",
+    role: "DevOps Engineer | AWS | Docker | Kubernetes",
+    img: "https://randomuser.me/api/portraits/men/32.jpg",
+    mutual: "Rajesh and 15 other mutual connections"
+  },
+  {
+    name: "Anita Reddy",
+    role: "Product Manager @ Microsoft | MBA IIM-A",
+    img: "https://randomuser.me/api/portraits/women/33.jpg",
+    mutual: "Sanjay and 12 other mutual connections"
+  },
+  {
+    name: "Karthik Menon",
+    role: "Machine Learning Engineer | Python | TensorFlow",
+    img: "https://randomuser.me/api/portraits/men/67.jpg",
+    mutual: "Deepak and 9 other mutual connections"
+  },
+  {
+    name: "Sneha Patel",
+    role: "Digital Marketing Specialist | SEO | Content Strategy",
+    img: "https://randomuser.me/api/portraits/women/54.jpg",
+    mutual: "Ravi and 7 other mutual connections"
+  },
+  {
+    name: "Rohit Kumar",
+    role: "Data Scientist @ Flipkart | Analytics | AI",
+    img: "https://randomuser.me/api/portraits/men/78.jpg",
+    mutual: "Amit and 14 other mutual connections"
+  },
+  {
+    name: "Meera Joshi",
+    role: "Software Architect | Java | Spring Boot | Microservices",
+    img: "https://randomuser.me/api/portraits/women/76.jpg",
+    mutual: "Suresh and 10 other mutual connections"
+  },
+  {
+    name: "Arjun Nair",
+    role: "Cybersecurity Analyst | CISSP | Ethical Hacking",
+    img: "https://randomuser.me/api/portraits/men/89.jpg",
+    mutual: "Vivek and 5 other mutual connections"
+  }
 ];
 
 export default function MyNetwork() {
@@ -106,14 +155,14 @@ export default function MyNetwork() {
               <div className="font-semibold text-base">People you may know in Greater Bengaluru Area</div>
               <button className="text-sm text-[#0A66C2] font-bold hover:underline">Show all</button>
             </div>
-            <div className="flex flex-row gap-5 overflow-x-auto pb-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {suggestedPeople.map((person, idx) => (
-                <div key={idx} className="w-56 rounded-lg border shadow group bg-gray-50 flex-shrink-0 relative">
+                <div key={idx} className="rounded-lg border shadow group bg-gray-50 relative">
                   <button className="absolute right-2 top-2 text-gray-400 font-bold rounded-full hover:bg-gray-200 p-1 z-10">✕</button>
                   <div className="flex flex-col items-center pt-6 pb-5 px-3">
                     <img src={person.img} alt={person.name} className="w-16 h-16 rounded-full border-2 border-white shadow -mt-8 object-cover" />
-                    <div className="font-medium mt-2 truncate text-center leading-5">{person.name}</div>
-                    <div className="text-xs text-gray-600 text-center leading-4 truncate w-full">{person.role}</div>
+                    <div className="font-medium mt-2 text-center leading-5 text-sm">{person.name}</div>
+                    <div className="text-xs text-gray-600 text-center leading-4 mt-1 line-clamp-2">{person.role}</div>
                     <div className="text-[11px] text-gray-500 mt-1 text-center">{person.mutual}</div>
                     <button className="mt-3 bg-white border border-[#0A66C2] text-[#0A66C2] font-bold text-sm rounded-full px-6 py-1 hover:bg-blue-50 transition">Connect</button>
                   </div>
